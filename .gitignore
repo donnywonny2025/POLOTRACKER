@@ -1,0 +1,21 @@
+# Environment & Secrets
+.env
+credentials.json
+token.json
+
+# Intermediate / Temp files
+.tmp/
+
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Node (if applicable)
+node_modules/
+Anthropic SKills/skills

@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSM Intel — Political Spending Research Dashboard</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #06060a;
+            --bg-card: #0d0d14;
+            --bg-hover: #13131e;
+            --bg-detail: #0a0a12;
+            --border: #1e1e2e;
+            --border-active: #2a2a40;
+            --text: #e0e0ec;
+            --text-muted: #6e6e8a;
+            --text-dim: #44445a;
+            --green: #00e676;
+            --green-dim: rgba(0, 230, 118, 0.12);
+            --green-glow: rgba(0, 230, 118, 0.3);
+            --red: #ff1744;
+            --red-dim: rgba(255, 23, 68, 0.12);
+            --blue: #448aff;
+            --blue-dim: rgba(68, 138, 255, 0.12);
+            --amber: #ffab00;
+            --amber-dim: rgba(255, 171, 0, 0.12);
+            --purple: #b388ff;
+            --purple-dim: rgba(179, 136, 255, 0.12);
+            --font-mono: 'IBM Plex Mono', monospace;
+            --font-body: 'Inter', sans-serif;
+            --font-heading: 'Space Grotesk', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .header {
+            padding: 24px 32px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(6, 6, 10, 0.92);
+            backdrop-filter: blur(20px);
+        }
+
+        .header__brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header__logo {
+            font-family: var(--font-heading);
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        .header__logo span {
+            color: var(--green);
+        }
+
+        .header__badge {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--green);
+            background: var(--green-dim);
+            padding: 4px 10px;
+            border-radius: 3px;
+            border: 1px solid rgba(0, 230, 118, 0.2);
+        }
+
+        .header__meta {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .main {
+            padding: 32px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: var(--border-active);
+        }
+
+        .stat-card__label {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .stat-card__value {
+            font-family: var(--font-heading);
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .stat-card__value.green {
+            color: var(--green);
+        }
+
+        .stat-card__value.red {
+            color: var(--red);
+        }
+
+        .stat-card__value.blue {
+            color: var(--blue);
+        }
+
+        .stat-card__value.amber {
+            color: var(--amber);
+        }
+
+        .controls {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            padding: 12px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text);
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-box::placeholder {
+            color: var(--text-dim);
+        }
+
+        .search-box:focus {
+            border-color: var(--green);
+            box-shadow: 0 0 15px var(--green-dim);
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 4px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 3px;
+        }
+
+        .filter-btn {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 8px 14px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background: transparent;
+            color: var(--text-muted);
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn:hover {
+            color: var(--text);
+            background: var(--bg-hover);
+        }
+
+        .filter-btn.active {
+            color: var(--bg);
+            background: var(--green);
+            font-weight: 600;
+        }
+
+        .filter-btn.active-red {
+            color: #fff;
+            background: var(--red);
+        }
+
+        .filter-btn.active-blue {
+            color: #fff;
+            background: var(--blue);
+        }
+
+        .cycle-select {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            padding: 10px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text);
+            cursor: pointer;
+            outline: none;
+        }
+
+        .cycle-select:focus {
+            border-color: var(--green);
+        }
+
+        .table-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .table-scroll {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        thead {
+            background: rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+        }
+
+        th {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            user-select: none;
+            white-space: nowrap;
+            transition: color 0.2s ease;
+        }
+
+        th:hover {
+            color: var(--green);
+        }
+
+        th.sorted {
+            color: var(--green);
+        }
+
+        th .sort-arrow {
+            margin-left: 4px;
+            font-size: 9px;
+        }
+
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(30, 30, 46, 0.5);
+            vertical-align: middle;
+        }
+
+        tr {
+            transition: background 0.2s ease;
+        }
+
+        tr:hover {
+            background: var(--bg-hover);
+        }
+
+        tr.data-row {
+            cursor: pointer;
+        }
+
+        .org-name {
+            font-weight: 500;
+            color: var(--text);
+            white-space: nowrap;
+        }
+
+        .spend-amount {
+            font-family: var(--font-mono);
+            font-weight: 600;
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .lean-badge {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 3px 8px;
+            border-radius: 3px;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        .lean-R {
+            color: var(--red);
+            background: var(--red-dim);
+        }
+
+        .lean-D {
+            color: var(--blue);
+            background: var(--blue-dim);
+        }
+
+        .lean-X {
+            color: var(--purple);
+            background: var(--purple-dim);
+        }
+
+        .tier-badge {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 0.08em;
+            padding: 3px 8px;
+            border-radius: 3px;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        .tier-1 {
+            color: var(--green);
+            background: var(--green-dim);
+        }
+
+        .tier-2 {
+            color: var(--amber);
+            background: var(--amber-dim);
+        }
+
+        .tier-3 {
+            color: var(--text-muted);
+            background: rgba(110, 110, 138, 0.12);
+        }
+
+        .rank-num {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-dim);
+            text-align: center;
+            min-width: 30px;
+        }
+
+        .spend-bar-cell {
+            min-width: 200px;
+        }
+
+        .spend-bar-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .spend-bar {
+            flex: 1;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .spend-bar__fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .spend-bar__fill.fill-R {
+            background: linear-gradient(90deg, var(--red), #ff5252);
+        }
+
+        .spend-bar__fill.fill-D {
+            background: linear-gradient(90deg, var(--blue), #82b1ff);
+        }
+
+        .spend-bar__fill.fill-X {
+            background: linear-gradient(90deg, var(--purple), #d1c4e9);
+        }
+
+        .table-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-top: 1px solid var(--border);
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* ── Expand Arrow ── */
+        .expand-arrow {
+            display: inline-block;
+            transition: transform 0.25s ease;
+            font-size: 10px;
+            color: var(--text-dim);
+            margin-right: 6px;
+        }
+
+        .expand-arrow.open {
+            transform: rotate(90deg);
+            color: var(--green);
+        }
+
+        .has-contacts .org-name {
+            color: var(--green);
+        }
+
+        /* ── Detail Row (pulldown) ── */
+        .detail-row {
+            display: none;
+        }
+
+        .detail-row.open {
+            display: table-row;
+        }
+
+        .detail-row td {
+            padding: 0;
+            background: var(--bg-detail);
+            border-bottom: 2px solid var(--border);
+        }
+
+        .detail-content {
+            padding: 16px 24px 16px 56px;
+        }
+
+        /* ── Section: Key People ── */
+        .pulldown-section-label {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .key-people {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 14px;
+        }
+
+        .key-person {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            min-width: 200px;
+        }
+
+        .key-person__avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--green-dim), rgba(0, 200, 150, 0.2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--green);
+            flex-shrink: 0;
+        }
+
+        .key-person__avatar.agency {
+            background: linear-gradient(135deg, var(--amber-dim), rgba(220, 170, 50, 0.2));
+            color: var(--amber);
+        }
+
+        .key-person__info {
+            flex: 1;
+        }
+
+        .key-person__name {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text);
+            line-height: 1.2;
+        }
+
+        .key-person__role {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            margin-top: 2px;
+        }
+
+        .key-person__detail {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--text-dim);
+            margin-top: 3px;
+            line-height: 1.4;
+        }
+
+        /* ── Contact Channels Bar ── */
+        .contact-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+            padding: 10px 14px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+        }
+
+        .contact-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-muted);
+            padding: 4px 10px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .contact-chip a {
+            color: var(--green);
+            text-decoration: none;
+        }
+
+        .contact-chip a:hover {
+            text-decoration: underline;
+            color: #fff;
+        }
+
+        .contact-chip .chip-icon {
+            font-size: 12px;
+        }
+
+        .contact-chip.primary {
+            background: rgba(0, 200, 130, 0.08);
+            border: 1px solid rgba(0, 200, 130, 0.15);
+        }
+
+        /* ── Notes Strip ── */
+        .pulldown-notes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--text-dim);
+            line-height: 1.5;
+        }
+
+        .pulldown-note {
+            display: flex;
+            gap: 6px;
+        }
+
+        .pulldown-note__label {
+            color: var(--amber);
+            white-space: nowrap;
+        }
+
+        /* ── Chart ── */
+        .chart-section {
+            margin-bottom: 32px;
+        }
+
+        .chart-section__title {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: 3px;
+            height: 140px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .bar-chart__bar {
+            flex: 1;
+            min-width: 12px;
+            max-width: 40px;
+            border-radius: 2px 2px 0 0;
+            cursor: pointer;
+            transition: opacity 0.2s ease, filter 0.2s ease;
+        }
+
+        .bar-chart__bar:hover {
+            opacity: 0.85;
+            filter: brightness(1.2);
+        }
+
+        .bar-chart__bar.bar-R {
+            background: linear-gradient(180deg, var(--red), rgba(255, 23, 68, 0.4));
+        }
+
+        .bar-chart__bar.bar-D {
+            background: linear-gradient(180deg, var(--blue), rgba(68, 138, 255, 0.4));
+        }
+
+        .bar-chart__bar.bar-X {
+            background: linear-gradient(180deg, var(--purple), rgba(179, 136, 255, 0.4));
+        }
+
+        .tooltip {
+            position: fixed;
+            z-index: 9999;
+            background: rgba(13, 13, 20, 0.95);
+            border: 1px solid var(--border-active);
+            border-radius: 6px;
+            padding: 10px 14px;
+            pointer-events: none;
+            opacity: 0;
+            transform: translateY(4px);
+            transition: opacity 0.15s ease, transform 0.15s ease;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            max-width: 280px;
+            backdrop-filter: blur(10px);
+        }
+
+        .tooltip.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .tooltip__name {
+            color: var(--text);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .tooltip__amount {
+            color: var(--green);
+        }
+
+        /* ── Industry Intel ── */
+        .intel-section {
+            margin-top: 32px;
+        }
+
+        .intel-section__title {
+            font-family: var(--font-heading);
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text);
+        }
+
+        .intel-section__title span {
+            color: var(--green);
+        }
+
+        .intel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .intel-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .intel-card__label {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--green);
+            margin-bottom: 10px;
+        }
+
+        .intel-card__body {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .intel-card__body strong {
+            color: var(--text);
+        }
+
+        .intel-card__body ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 8px;
+        }
+
+        .intel-card__body li {
+            padding: 4px 0;
+            border-bottom: 1px solid rgba(30, 30, 46, 0.3);
+        }
+
+        .intel-card__body li:last-child {
+            border-bottom: none;
+        }
+
+        .notes {
+            margin-top: 24px;
+            padding: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        .notes__title {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--green);
+            margin-bottom: 12px;
+        }
+
+        .notes p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 8px;
+        }
+
+        .notes a {
+            color: var(--green);
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 16px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .main {
+                padding: 16px;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .search-box {
+                min-width: 100%;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="header__brand">
+            <div class="header__logo">DSM <span>INTEL</span></div>
+            <div class="header__badge">Research Dashboard</div>
+        </div>
+        <div class="header__meta">Source: OpenSecrets.org | Data: 2022 & 2024 Cycles</div>
+    </header>
+
+    <main class="main">
+        <div class="stats" id="stats"></div>
+
+        <div class="chart-section">
+            <div class="chart-section__title">Top 30 Spenders — Visual Comparison</div>
+            <div class="bar-chart" id="bar-chart"></div>
+        </div>
+
+        <div class="controls">
+            <input type="text" class="search-box" id="search" placeholder="Search organizations...">
+            <div class="filter-group" id="lean-filter">
+                <button class="filter-btn active" data-lean="all">All</button>
+                <button class="filter-btn" data-lean="R">Republican</button>
+                <button class="filter-btn" data-lean="D">Democrat</button>
+                <button class="filter-btn" data-lean="X">Bipartisan</button>
+            </div>
+            <div class="filter-group" id="tier-filter">
+                <button class="filter-btn active" data-tier="all">All Tiers</button>
+                <button class="filter-btn" data-tier="1">Tier 1</button>
+                <button class="filter-btn" data-tier="2">Tier 2</button>
+                <button class="filter-btn" data-tier="3">Tier 3</button>
+            </div>
+            <select class="cycle-select" id="cycle-select">
+                <option value="2024">2024 Cycle</option>
+                <option value="2022">2022 Cycle</option>
+                <option value="both">Both Cycles</option>
+            </select>
+        </div>
+
+        <div class="table-container">
+            <div class="table-scroll">
+                <table id="data-table">
+                    <thead>
+                        <tr>
+                            <th data-sort="rank" class="sorted">#<span class="sort-arrow">▼</span></th>
+                            <th data-sort="name">Organization</th>
+                            <th data-sort="spend">Total Spend<span class="sort-arrow"></span></th>
+                            <th>Relative</th>
+                            <th data-sort="lean">Lean<span class="sort-arrow"></span></th>
+                            <th data-sort="tier">Tier<span class="sort-arrow"></span></th>
+                            <th data-sort="cycle">Cycle<span class="sort-arrow"></span></th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body"></tbody>
+                </table>
+            </div>
+            <div class="table-footer">
+                <span id="result-count">Loading...</span>
+                <span>▶ Click rows with green names to expand contacts</span>
+            </div>
+        </div>
+
+        <!-- Industry Intel Section -->
+        <div class="intel-section">
+            <div class="intel-section__title">Industry <span>Intel</span></div>
+            <div class="intel-grid">
+                <div class="intel-card">
+                    <div class="intel-card__label">Market Size — 2024</div>
+                    <div class="intel-card__body">
+                        <strong>$10.2–$16 billion</strong> total political ad spending projected for 2024 cycle.
+                        <ul>
+                            <li><strong>CTV/Streaming:</strong> $1.34B (↑33% vs 2022)</li>
+                            <li><strong>Digital total:</strong> $3.46B (↑156% vs 2020)</li>
+                            <li><strong>Video ads:</strong> 76% of all digital political spend</li>
+                            <li><strong>Linear TV:</strong> Still 70%+ of total, but declining</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="intel-card">
+                    <div class="intel-card__label">Dem Media Buying Firms (Competitors)</div>
+                    <div class="intel-card__body">
+                        These are the agencies currently handling media buying for the biggest Dem PACs. They're who
+                        you're competing with <em>or</em> partnering with:
+                        <ul>
+                            <li><strong>GMMB</strong> — Obama/Biden media. Works w/ Future Forward, HMP, DSCC, DCCC</li>
+                            <li><strong>Bully Pulpit International (BPI)</strong> — Obama alumni. Strategy + digital
+                            </li>
+                            <li><strong>SKDK</strong> — Major Dem broadcast TV firm</li>
+                            <li><strong>Buying Time</strong> — TV media buying</li>
+                            <li><strong>Canal Partners Media</strong> — Dem media buying</li>
+                            <li><strong>MDW Communications</strong> — Campaign ads, digital, direct mail</li>
+                            <li><strong>AL Media Strategy</strong> — Obama/Biden ad creation</li>
+                            <li><strong>DSPolitical</strong> — Programmatic, CTV, digital targeting</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="intel-card">
+                    <div class="intel-card__label">Key Trends to Know</div>
+                    <div class="intel-card__body">
+                        <ul>
+                            <li><strong>Authenticity > polish:</strong> "Citizen filmmaker" feel outperforms slick
+                                production on social</li>
+                            <li><strong>Abortion ads dominated 2024:</strong> Most-run Dem issue since 2012</li>
+                            <li><strong>Harris spent $215M on Meta/Google</strong> alone (vs Trump's $49M)</li>
+                            <li><strong>Crypto PACs are new money:</strong> Fairshake/Protect Progress spent $170M+
+                                combined — underserved by political firms</li>
+                            <li><strong>AI in ad production:</strong> Emerging for rapid-response cuts and personalized
+                                variants</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="intel-card">
+                    <div class="intel-card__label">Outreach Timing</div>
+                    <div class="intel-card__body">
+                        <ul>
+                            <li><strong>2026 midterms:</strong> Outreach window is <strong>NOW through Q2 2025</strong>
+                            </li>
+                            <li><strong>PACs start hiring vendors</strong> 12–18 months before election day</li>
+                            <li><strong>Primary season</strong> (spring 2026) = surge in demand for rapid-response video
+                            </li>
+                            <li><strong>Super PACs can start spending</strong> the moment they raise — no waiting</li>
+                            <li><strong>Party committees</strong> (DCCC, DSCC) lock vendors early in cycle</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="notes">
+            <div class="notes__title">Data Sources & Strategy Notes</div>
+            <p><strong>Sources:</strong> <a href="https://www.opensecrets.org/online-ads" target="_blank">OpenSecrets
+                    Online Ads</a> | <a href="https://www.opensecrets.org/outside-spending/by_group?cycle=2024"
+                    target="_blank">Outside Spending 2024</a> | <a
+                    href="https://www.opensecrets.org/outside-spending/by_group?cycle=2022" target="_blank">Outside
+                    Spending 2022</a></p>
+            <p><strong>Strategy:</strong> Rank by spend → reverse-engineer contacts → send party-specific portfolio
+                links (<code>deepstatemedia.io/r</code> or <code>/d</code>) → follow up → work down list.</p>
+            <p><strong>Landing pages:</strong> Build <code>/r</code> (Republican work samples) and <code>/d</code>
+                (Democrat work samples). Use <code>?party=r</code> query param to swap portfolio cards via JS. One
+                codebase, two presentations.</p>
+            <p><strong>FEC contacts:</strong> <a href="https://www.fec.gov/data/committees/" target="_blank">FEC
+                    Committee Search</a> — treasurer name, address, and contact info for every registered PAC (public
+                record).</p>
+        </div>
+    </main>
+
+    <div class="tooltip" id="tooltip">
+        <div class="tooltip__name" id="tooltip-name"></div>
+        <div class="tooltip__amount" id="tooltip-amount"></div>
+    </div>
+
+    <script>
+        // ═══════════════════════════════════════════════════════
+        // CONTACTS DATABASE — Democrat Organizations
+        // ═══════════════════════════════════════════════════════
+        const CONTACTS = {
+            "Future Forward USA": {
+                people: [
+                    { name: "Chauncey McLean", role: "President", detail: "Runs all FF PAC strategy. Former DNC media tracking, Obama 2012 data/analytics." },
+                    { name: "Katie Melin", role: "COO — Day-to-Day Ops", detail: "Former Priorities USA, Hillary Clinton campaign, DNC." },
+                    { name: "GMMB", role: "Media Buyer ★", detail: "GATEKEEPER for all video vendor selection.", agency: true },
+                ],
+                channels: [
+                    { type: "web", value: "futureforward.org", url: "https://futureforward.org" },
+                    { type: "address", value: "Palo Alto, CA (DC via Future Forward USA Action 501c4)" },
+                ],
+                notes: [
+                    { label: "Budget", text: "$509M spent / $950M raised in 2024" },
+                    { label: "Tip", text: "Go through GMMB — they control all vendor relationships" },
+                ],
+            },
+            "Senate Majority PAC": {
+                people: [
+                    { name: "J.B. Poersch", role: "President", detail: "Since 2017. Also runs Majority Forward (501c4)." },
+                    { name: "Amanda Ach", role: "Digital Director", detail: "Manages digital ops & vendor relationships." },
+                    { name: "GMMB", role: "Media Buyer ★", detail: "Handles all media planning and buying.", agency: true },
+                ],
+                channels: [
+                    { type: "email", value: "information@democrats.senatemajority.com", url: "mailto:information@democrats.senatemajority.com", primary: true },
+                    { type: "web", value: "senatemajority.com", url: "https://senatemajority.com" },
+                    { type: "address", value: "1032 15th St NW, Suite 247, DC 20005" },
+                ],
+                notes: [
+                    { label: "FEC ID", text: "C00484642" },
+                    { label: "Treasurer", text: "Rebecca Lambe (also founded Majority Forward)" },
+                ],
+            },
+            "House Majority PAC": {
+                people: [
+                    { name: "Mike Smith", role: "President", detail: "Since Jan 2023. Former Senior Advisor to Speaker Pelosi." },
+                    { name: "Abby Curran Horrell", role: "Executive Director", detail: "Nearly 20 yrs Dem politics. Former DCCC, chief of staff to Rep. Annie Kuster." },
+                    { name: "GMMB", role: "Media Buyer ★", detail: "Primary media planning and buying partner.", agency: true },
+                ],
+                channels: [
+                    { type: "email", value: "info@thehousemajoritypac.com", url: "mailto:info@thehousemajoritypac.com", primary: true },
+                    { type: "email", value: "democrats@hmpac.com", url: "mailto:democrats@hmpac.com" },
+                    { type: "web", value: "thehousemajoritypac.com", url: "https://thehousemajoritypac.com" },
+                    { type: "address", value: "1032 15th St NW, Suite 247, DC 20005 (same bldg as SMP)" },
+                ],
+                notes: [
+                    { label: "Treasurer", text: "Alixandria Lapp (also founder)" },
+                ],
+            },
+            "Dem. Congressional Campaign Cmte": {
+                people: [
+                    { name: "Julie Merz", role: "Executive Director", detail: "Runs day-to-day operations." },
+                    { name: "Rep. Suzan DelBene", role: "Chair", detail: "WA-01. Appointed by Hakeem Jeffries." },
+                    { name: "GMMB", role: "Media Buyer ★", detail: "Historical media buying partner for DCCC.", agency: true },
+                ],
+                channels: [
+                    { type: "email", value: "dccc@dccc.org", url: "mailto:dccc@dccc.org", primary: true },
+                    { type: "web", value: "dccc.org", url: "https://dccc.org" },
+                ],
+                notes: [],
+            },
+            "American Bridge 21st Century": {
+                people: [
+                    { name: "Pat Dennis", role: "President", detail: "Since Dec 2022. Former VP of Research at AB. With org since 2014." },
+                    { name: "David Brock", role: "Founder", detail: "Also founded Media Matters for America." },
+                ],
+                channels: [
+                    { type: "email", value: "info@americanbridge.org", url: "mailto:info@americanbridge.org", primary: true },
+                    { type: "web", value: "americanbridgepac.org", url: "https://americanbridgepac.org" },
+                    { type: "address", value: "800 Maine Ave SW, Ste 400, DC 20024" },
+                ],
+                notes: [
+                    { label: "FEC ID", text: "C00762591" },
+                    { label: "Focus", text: "Opposition research & video tracking — they MAKE political video" },
+                ],
+            },
+            "League of Conservation Voters": {
+                people: [
+                    { name: "Pete Maysmith", role: "President", detail: "Previously SVP of Campaigns. Oversees all electoral activity + Victory Fund." },
+                ],
+                channels: [
+                    { type: "email", value: "press@lcv.org", url: "mailto:press@lcv.org", primary: true },
+                    { type: "phone", value: "(202) 785-8683" },
+                    { type: "web", value: "lcvvictoryfund.org", url: "https://lcvvictoryfund.org" },
+                    { type: "address", value: "740 15th St NW, Suite 700, DC 20005" },
+                ],
+                notes: [
+                    { label: "Budget", text: "$120M planned for 2024 — record investment" },
+                ],
+            },
+            "Dem. Senatorial Campaign Cmte": {
+                people: [
+                    { name: "Devan Barber", role: "Exec. Director (2025+)", detail: "New ED starting Jan 2025 — THE contact going forward." },
+                    { name: "GMMB", role: "Media Buyer ★", detail: "Historical media buying partner.", agency: true },
+                ],
+                channels: [
+                    { type: "email", value: "info@dscc.org", url: "mailto:info@dscc.org", primary: true },
+                    { type: "phone", value: "(202) 224-2447" },
+                    { type: "address", value: "120 Maryland Ave NE, DC 20002" },
+                ],
+                notes: [
+                    { label: "Tip", text: "Christie Roberts departed post-2024. Devan Barber is new." },
+                ],
+            },
+            "Campaign for Family Friendly Economy": {
+                people: [
+                    { name: "Sondra Goldschein", role: "Executive Director", detail: "20-year ACLU veteran. Former deputy national political director." },
+                ],
+                channels: [
+                    { type: "email", value: "press@familyfriendlyeconomy.org", url: "mailto:press@familyfriendlyeconomy.org", primary: true },
+                    { type: "web", value: "familyfriendlyeconomy.org", url: "https://familyfriendlyeconomy.org" },
+                ],
+                notes: [
+                    { label: "Budget", text: "$40M for 2024 — Harris + battleground Dems" },
+                    { label: "Issues", text: "Paid leave, childcare, eldercare, Rx costs" },
+                ],
+            },
+            "Protect Progress": {
+                people: [
+                    { name: "Josh Vlasto", role: "Spokesperson", detail: "Shared across Fairshake network. Former top aide to Gov. Cuomo." },
+                ],
+                channels: [
+                    { type: "web", value: "protectprogresspac.com", url: "https://protectprogresspac.com" },
+                ],
+                notes: [
+                    { label: "⚡ Opportunity", text: "NEW MONEY — crypto PACs are brand new. Less entrenched vendors = easier sell." },
+                    { label: "Funded by", text: "Coinbase, Ripple, a16z, Winklevoss, Jump Crypto" },
+                    { label: "Spent", text: "$34M+ in 2024" },
+                ],
+            },
+            "Last Best Place PAC": {
+                people: [
+                    { name: "J.B. Poersch / Rebecca Lambe", role: "Reach via Senate Majority PAC", detail: "Same staff runs both orgs." },
+                ],
+                channels: [
+                    { type: "email", value: "information@democrats.senatemajority.com", url: "mailto:information@democrats.senatemajority.com", primary: true },
+                ],
+                notes: [
+                    { label: "Tip", text: "Funded by Majority Forward (Schumer 501c4). Shared staff at 1032 15th St NW." },
+                ],
+            },
+            "Black PAC": {
+                people: [
+                    { name: "Adrianne Shropshire", role: "Executive Director", detail: "Co-founded BlackPAC 2016. Oversees all strategy & voter engagement." },
+                ],
+                channels: [
+                    { type: "email", value: "press@blackpac.com", url: "mailto:press@blackpac.com", primary: true },
+                    { type: "email", value: "info@blackpac.com", url: "mailto:info@blackpac.com" },
+                    { type: "web", value: "blackpac.com", url: "https://blackpac.com" },
+                ],
+                notes: [],
+            },
+            "VoteVets.org": {
+                people: [
+                    { name: "Jon Soltz", role: "Chairman & Exec. Director", detail: "Co-founder (2006). Iraq War veteran. Most visible progressive vet voice." },
+                ],
+                channels: [
+                    { type: "email", value: "eric@votevets.org", url: "mailto:eric@votevets.org", primary: true, label: "Press (Eric)" },
+                    { type: "email", value: "info@votevets.org", url: "mailto:info@votevets.org" },
+                    { type: "web", value: "votevets.org", url: "https://votevets.org" },
+                ],
+                notes: [],
+            },
+            "Priorities USA Action": {
+                people: [
+                    { name: "Danielle Butterfield", role: "Executive Director", detail: "Since 2021. Former Paid Media Dir. Ran digital ads for Obama 2012, Hillary 2016." },
+                ],
+                channels: [
+                    { type: "email", value: "press@priorities.org", url: "mailto:press@priorities.org", primary: true },
+                    { type: "web", value: "priorities.org", url: "https://priorities.org" },
+                ],
+                notes: [
+                    { label: "Budget", text: "$75M digital target for 2024 — CTV, YouTube, battlegrounds" },
+                    { label: "Tip", text: "Butterfield deeply understands video production from paid media background" },
+                ],
+            },
+            "Planned Parenthood Action": {
+                people: [
+                    { name: "Alexis McGill Johnson", role: "President & CEO", detail: "Also leads PP Federation of America." },
+                ],
+                channels: [
+                    { type: "email", value: "media.office@ppfa.org", url: "mailto:media.office@ppfa.org", primary: true },
+                    { type: "phone", value: "(212) 261-4433", label: "Media office" },
+                    { type: "web", value: "plannedparenthoodaction.org", url: "https://plannedparenthoodaction.org" },
+                ],
+                notes: [
+                    { label: "⚡ Hot Issue", text: "Post-Dobbs abortion ads — most important Dem issue. Massive ad spend." },
+                ],
+            },
+            "Biden for President": {
+                people: [
+                    { name: "Julie Chavez Rodriguez", role: "Campaign Manager (2024)", detail: "Former WH intergovernmental affairs director." },
+                ],
+                channels: [],
+                notes: [
+                    { label: "Status", text: "Campaign closed post-election. Contacts now at DNC or private sector." },
+                ],
+            },
+            "Biden Victory Fund": {
+                people: [],
+                channels: [],
+                notes: [
+                    { label: "Note", text: "Joint fundraising committee — contacts via DNC and Biden campaign staff." },
+                ],
+            },
+        };
+
+        // ═══════════════════════════════════════════════════════
+        // DATA
+        // ═══════════════════════════════════════════════════════
+        const DATA = [
+            { name: "Future Forward USA", spend: 509516235, lean: "D", cycle: 2024, tier: 1, notes: "Massive — pro-Biden/Harris Super PAC" },
+            { name: "Make America Great Again Inc", spend: 376948611, lean: "R", cycle: 2024, tier: 1, notes: "Trump-aligned Super PAC" },
+            { name: "Senate Majority PAC", spend: 311285447, lean: "D", cycle: 2024, tier: 1, notes: "Senate Democrat spending arm" },
+            { name: "Congressional Leadership Fund", spend: 216739025, lean: "R", cycle: 2024, tier: 1, notes: "House GOP spending arm" },
+            { name: "Senate Leadership Fund", spend: 211092912, lean: "R", cycle: 2024, tier: 1, notes: "Senate GOP spending arm (McConnell)" },
+            { name: "House Majority PAC", spend: 195661197, lean: "D", cycle: 2024, tier: 1, notes: "House Dem spending arm" },
+            { name: "America PAC", spend: 171961130, lean: "R", cycle: 2024, tier: 1, notes: "Elon Musk-backed" },
+            { name: "Americans for Prosperity", spend: 138498011, lean: "R", cycle: 2024, tier: 1, notes: "Koch network" },
+            { name: "Fairshake PAC", spend: 133006874, lean: "X", cycle: 2024, tier: 1, notes: "Crypto industry — massive new player" },
+            { name: "Preserve America PAC", spend: 112321876, lean: "R", cycle: 2024, tier: 1, notes: "Pro-Trump" },
+            { name: "SFA Fund", spend: 81820601, lean: "R", cycle: 2024, tier: 2, notes: "" },
+            { name: "Club for Growth", spend: 74389393, lean: "R", cycle: 2024, tier: 2, notes: "Fiscal conservative group" },
+            { name: "Dem. Congressional Campaign Cmte", spend: 74257107, lean: "D", cycle: 2024, tier: 2, notes: "DCCC — official party arm" },
+            { name: "Right for America", spend: 69583226, lean: "R", cycle: 2024, tier: 2, notes: "" },
+            { name: "American Bridge 21st Century", spend: 69047555, lean: "D", cycle: 2024, tier: 2, notes: "Dem opposition research" },
+            { name: "American Crossroads", spend: 60267472, lean: "R", cycle: 2024, tier: 2, notes: "Karl Rove-founded" },
+            { name: "Defend American Jobs", spend: 57809162, lean: "R", cycle: 2024, tier: 2, notes: "" },
+            { name: "Keystone Renewal PAC", spend: 54394973, lean: "R", cycle: 2024, tier: 2, notes: "PA-focused" },
+            { name: "Win It Back PAC", spend: 53709231, lean: "R", cycle: 2024, tier: 2, notes: "" },
+            { name: "League of Conservation Voters", spend: 46682823, lean: "D", cycle: 2024, tier: 2, notes: "Environmental" },
+            { name: "Dem. Senatorial Campaign Cmte", spend: 43757705, lean: "D", cycle: 2024, tier: 2, notes: "DSCC" },
+            { name: "Campaign for Family Friendly Economy", spend: 43136979, lean: "D", cycle: 2024, tier: 2, notes: "" },
+            { name: "Restoration PAC", spend: 42747106, lean: "R", cycle: 2024, tier: 2, notes: "" },
+            { name: "Fairshake (sub-PACs)", spend: 40661816, lean: "X", cycle: 2024, tier: 2, notes: "Crypto" },
+            { name: "American Israel Public Affairs Cmte", spend: 37860200, lean: "X", cycle: 2024, tier: 2, notes: "AIPAC" },
+            { name: "Never Back Down Inc", spend: 37764406, lean: "R", cycle: 2024, tier: 2, notes: "DeSantis-aligned" },
+            { name: "Natl Republican Congressional Cmte", spend: 36483042, lean: "R", cycle: 2024, tier: 2, notes: "NRCC" },
+            { name: "Protect Progress", spend: 34535896, lean: "D", cycle: 2024, tier: 2, notes: "Crypto" },
+            { name: "Last Best Place PAC", spend: 33816221, lean: "D", cycle: 2024, tier: 2, notes: "MT-focused (Tester)" },
+            { name: "Republican Accountability PAC", spend: 33776579, lean: "R", cycle: 2024, tier: 2, notes: "Anti-Trump Republicans" },
+            { name: "Black PAC", spend: 28193090, lean: "D", cycle: 2024, tier: 2, notes: "" },
+            { name: "Maryland's Future", spend: 27014714, lean: "R", cycle: 2024, tier: 2, notes: "Hogan campaign" },
+            { name: "VoteVets.org", spend: 24473501, lean: "D", cycle: 2024, tier: 3, notes: "Military/veteran focus" },
+            { name: "Priorities USA Action", spend: 22000000, lean: "D", cycle: 2024, tier: 3, notes: "Major Dem Super PAC" },
+            { name: "National Rifle Assn", spend: 19500000, lean: "R", cycle: 2024, tier: 3, notes: "NRA" },
+            { name: "For Our Future", spend: 18000000, lean: "D", cycle: 2024, tier: 3, notes: "Progressive mobilization" },
+            { name: "Planned Parenthood Action", spend: 16500000, lean: "D", cycle: 2024, tier: 3, notes: "Reproductive rights" },
+            { name: "Patriot Majority USA", spend: 15000000, lean: "D", cycle: 2024, tier: 3, notes: "" },
+            { name: "Save My Country PAC", spend: 14200000, lean: "R", cycle: 2024, tier: 3, notes: "" },
+            { name: "Ready for Ron", spend: 13500000, lean: "R", cycle: 2024, tier: 3, notes: "DeSantis-aligned" },
+            { name: "Senate Leadership Fund", spend: 246008258, lean: "R", cycle: 2022, tier: 1, notes: "Consistent mega-spender" },
+            { name: "Congressional Leadership Fund", spend: 227322694, lean: "R", cycle: 2022, tier: 1, notes: "Consistent mega-spender" },
+            { name: "Senate Majority PAC", spend: 223057190, lean: "D", cycle: 2022, tier: 1, notes: "Consistent mega-spender" },
+            { name: "House Majority PAC", spend: 145276097, lean: "D", cycle: 2022, tier: 1, notes: "Consistent mega-spender" },
+            { name: "Dem. Congressional Campaign Cmte", spend: 96432269, lean: "D", cycle: 2022, tier: 2, notes: "DCCC" },
+            { name: "Natl Republican Congressional Cmte", spend: 87126598, lean: "R", cycle: 2022, tier: 2, notes: "NRCC" },
+            { name: "Club for Growth", spend: 81355585, lean: "R", cycle: 2022, tier: 2, notes: "Fiscal conservative" },
+            { name: "Americans for Prosperity", spend: 69494884, lean: "R", cycle: 2022, tier: 2, notes: "Koch network" },
+            { name: "Natl Republican Senatorial Cmte", spend: 34045423, lean: "R", cycle: 2022, tier: 2, notes: "NRSC" },
+            { name: "League of Conservation Voters", spend: 33303633, lean: "D", cycle: 2022, tier: 2, notes: "Environmental" },
+            { name: "Dem. Senatorial Campaign Cmte", spend: 32348973, lean: "D", cycle: 2022, tier: 2, notes: "DSCC" },
+            { name: "Women Vote!", spend: 29851924, lean: "D", cycle: 2022, tier: 2, notes: "" },
+            { name: "Wisconsin Truth PAC", spend: 28874330, lean: "R", cycle: 2022, tier: 2, notes: "State-focused" },
+            { name: "United Democracy Project", spend: 26118654, lean: "X", cycle: 2022, tier: 2, notes: "AIPAC-affiliated" },
+            { name: "Saving Arizona PAC", spend: 25405565, lean: "R", cycle: 2022, tier: 2, notes: "State-focused" },
+            { name: "VoteVets.org", spend: 24473501, lean: "D", cycle: 2022, tier: 3, notes: "Military/veteran" },
+            { name: "Protect Our Future PAC", spend: 24246001, lean: "D", cycle: 2022, tier: 3, notes: "Crypto (SBF)" },
+            { name: "Future Forward USA", spend: 22844808, lean: "D", cycle: 2022, tier: 3, notes: "Now a mega-spender in 2024" },
+            { name: "Family Friendly Action Fund", spend: 20809516, lean: "D", cycle: 2022, tier: 3, notes: "" },
+            { name: "American Leadership Action", spend: 19588089, lean: "R", cycle: 2022, tier: 3, notes: "" },
+            { name: "Honor Pennsylvania", spend: 19262367, lean: "R", cycle: 2022, tier: 3, notes: "State-focused" },
+            { name: "Priorities USA Action", spend: 16470705, lean: "D", cycle: 2022, tier: 3, notes: "Major Dem Super PAC" },
+            { name: "Protect Ohio Values PAC", spend: 15985849, lean: "R", cycle: 2022, tier: 3, notes: "State-focused" },
+            { name: "National Rifle Assn", spend: 15898751, lean: "R", cycle: 2022, tier: 3, notes: "NRA" },
+            { name: "Make America Great Again Inc", spend: 15031832, lean: "R", cycle: 2022, tier: 3, notes: "Grew massively by 2024" },
+            { name: "Trump Make America Great Again Cmte", spend: 140909526, lean: "R", cycle: 2024, tier: 1, notes: "Joint fundraising cmte — online ads" },
+            { name: "Biden for President", spend: 130147158, lean: "D", cycle: 2024, tier: 1, notes: "Campaign committee — online ads" },
+            { name: "Donald J Trump for President", spend: 127563893, lean: "R", cycle: 2024, tier: 1, notes: "Campaign committee — online ads" },
+            { name: "Biden Victory Fund", spend: 69645005, lean: "D", cycle: 2024, tier: 2, notes: "Joint fundraising — online ads" },
+            { name: "Dem. Senatorial Campaign Cmte (online)", spend: 23473235, lean: "D", cycle: 2024, tier: 3, notes: "Online ad spending specifically" },
+            { name: "Republican National Cmte (online)", spend: 21318738, lean: "R", cycle: 2024, tier: 3, notes: "Online ad spending specifically" },
+            { name: "Jaime Harrison for US Senate", spend: 17656050, lean: "D", cycle: 2024, tier: 3, notes: "Historic Senate campaign spending" },
+        ];
+
+        // ═══════════════════════════════════════════════════════
+        // APP LOGIC
+        // ═══════════════════════════════════════════════════════
+        let currentLean = 'all', currentTier = 'all', currentCycle = '2024', currentSort = 'spend', sortAsc = false, searchTerm = '';
+
+        function fmt(n) {
+            if (n >= 1e9) return '$' + (n / 1e9).toFixed(1) + 'B';
+            if (n >= 1e6) return '$' + (n / 1e6).toFixed(1) + 'M';
+            if (n >= 1e3) return '$' + (n / 1e3).toFixed(0) + 'K';
+            return '$' + n.toLocaleString();
+        }
+        function fmtFull(n) { return '$' + n.toLocaleString(); }
+
+        function getFiltered() {
+            return DATA.filter(d => {
+                if (currentLean !== 'all' && d.lean !== currentLean) return false;
+                if (currentTier !== 'all' && d.tier !== parseInt(currentTier)) return false;
+                if (currentCycle !== 'both' && d.cycle !== parseInt(currentCycle)) return false;
+                if (searchTerm && !d.name.toLowerCase().includes(searchTerm.toLowerCase())) return false;
+                return true;
+            });
+        }
+
+        function getSorted(data) {
+            const sorted = [...data];
+            sorted.sort((a, b) => {
+                let va, vb;
+                switch (currentSort) {
+                    case 'name': va = a.name; vb = b.name; break;
+                    case 'spend': va = a.spend; vb = b.spend; break;
+                    case 'lean': va = a.lean; vb = b.lean; break;
+                    case 'tier': va = a.tier; vb = b.tier; break;
+                    case 'cycle': va = a.cycle; vb = b.cycle; break;
+                    default: va = a.spend; vb = b.spend;
+                }
+                if (typeof va === 'string') return sortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
+                return sortAsc ? va - vb : vb - va;
+            });
+            return sorted;
+        }
+
+        function getUnique(data) {
+            const map = new Map();
+            data.forEach(d => { const e = map.get(d.name); if (!e || d.spend > e.spend) map.set(d.name, d); });
+            return Array.from(map.values());
+        }
+
+        function renderStats() {
+            const filtered = getFiltered();
+            const unique = getUnique(filtered);
+            const totalSpend = unique.reduce((s, d) => s + d.spend, 0);
+            const repSpend = unique.filter(d => d.lean === 'R').reduce((s, d) => s + d.spend, 0);
+            const demSpend = unique.filter(d => d.lean === 'D').reduce((s, d) => s + d.spend, 0);
+            const withContacts = unique.filter(d => CONTACTS[d.name]).length;
+            document.getElementById('stats').innerHTML = `
+    <div class="stat-card"><div class="stat-card__label">Total Organizations</div><div class="stat-card__value green">${unique.length}</div></div>
+    <div class="stat-card"><div class="stat-card__label">Combined Spend</div><div class="stat-card__value">${fmt(totalSpend)}</div></div>
+    <div class="stat-card"><div class="stat-card__label">Republican Spend</div><div class="stat-card__value red">${fmt(repSpend)}</div></div>
+    <div class="stat-card"><div class="stat-card__label">Democrat Spend</div><div class="stat-card__value blue">${fmt(demSpend)}</div></div>
+    <div class="stat-card"><div class="stat-card__label">Contacts Found</div><div class="stat-card__value amber">${withContacts}</div></div>
+  `;
+        }
+
+        function renderChart() {
+            const filtered = getFiltered();
+            const unique = getUnique(filtered);
+            unique.sort((a, b) => b.spend - a.spend);
+            const top = unique.slice(0, 30);
+            const maxSpend = top[0]?.spend || 1;
+            document.getElementById('bar-chart').innerHTML = top.map(d => {
+                const pct = (d.spend / maxSpend) * 100;
+                return `<div class="bar-chart__bar bar-${d.lean}" style="height:${Math.max(pct, 2)}%" onmouseenter="showTooltip(event,'${d.name.replace(/'/g, "\\'")}','${fmtFull(d.spend)}')" onmouseleave="hideTooltip()" onmousemove="moveTooltip(event)"></div>`;
+            }).join('');
+        }
+
+        function renderTable() {
+            const filtered = getFiltered();
+            const sorted = getSorted(filtered);
+            const maxSpend = Math.max(...sorted.map(d => d.spend), 1);
+            const tbody = document.getElementById('table-body');
+            let html = '';
+
+            sorted.forEach((d, i) => {
+                const hasContacts = !!CONTACTS[d.name];
+                const rowId = `row-${i}`;
+                const arrow = hasContacts ? `<span class="expand-arrow" id="arrow-${i}">▶</span>` : '<span style="display:inline-block;width:16px"></span>';
+
+                html += `<tr class="data-row ${hasContacts ? 'has-contacts' : ''}" onclick="${hasContacts ? `toggleDetail(${i})` : ''}">
+      <td class="rank-num">${i + 1}</td>
+      <td class="org-name">${arrow}${d.name}</td>
+      <td class="spend-amount">${fmtFull(d.spend)}</td>
+      <td class="spend-bar-cell"><div class="spend-bar-wrap"><div class="spend-bar"><div class="spend-bar__fill fill-${d.lean}" style="width:${(d.spend / maxSpend * 100).toFixed(1)}%"></div></div></div></td>
+      <td><span class="lean-badge lean-${d.lean}">${d.lean === 'R' ? 'GOP' : d.lean === 'D' ? 'DEM' : 'BI'}</span></td>
+      <td><span class="tier-badge tier-${d.tier}">Tier ${d.tier}</span></td>
+      <td style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted)">${d.cycle}</td>
+      <td style="font-size:12px;color:var(--text-dim);max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${d.notes}">${d.notes}</td>
+    </tr>`;
+
+                if (hasContacts) {
+                    const org = CONTACTS[d.name];
+                    html += `<tr class="detail-row" id="detail-${i}"><td colspan="8"><div class="detail-content">`;
+
+                    // — Key People section —
+                    if (org.people && org.people.length) {
+                        html += `<div class="pulldown-section-label">Key People</div><div class="key-people">`;
+                        org.people.forEach(p => {
+                            const initials = p.name.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
+                            const avatarClass = p.agency ? 'key-person__avatar agency' : 'key-person__avatar';
+                            html += `<div class="key-person">
+                                <div class="${avatarClass}">${initials}</div>
+                                <div class="key-person__info">
+                                    <div class="key-person__name">${p.name}</div>
+                                    <div class="key-person__role">${p.role}</div>
+                                    ${p.detail ? `<div class="key-person__detail">${p.detail}</div>` : ''}
+                                </div>
+                            </div>`;
+                        });
+                        html += `</div>`;
+                    }
+
+                    // — Contact Channels bar —
+                    if (org.channels && org.channels.length) {
+                        html += `<div class="contact-bar">`;
+                        org.channels.forEach(ch => {
+                            const icon = ch.type === 'email' ? '📧' : ch.type === 'phone' ? '📞' : ch.type === 'web' ? '🌐' : '📍';
+                            const label = ch.label ? `<span style="color:var(--text-dim)">${ch.label}:</span> ` : '';
+                            const primaryClass = ch.primary ? ' primary' : '';
+                            if (ch.url) {
+                                html += `<div class="contact-chip${primaryClass}"><span class="chip-icon">${icon}</span>${label}<a href="${ch.url}" target="_blank">${ch.value}</a></div>`;
+                            } else {
+                                html += `<div class="contact-chip${primaryClass}"><span class="chip-icon">${icon}</span>${label}${ch.value}</div>`;
+                            }
+                        });
+                        html += `</div>`;
+                    }
+
+                    // — Notes strip —
+                    if (org.notes && org.notes.length) {
+                        html += `<div class="pulldown-notes">`;
+                        org.notes.forEach(n => {
+                            html += `<div class="pulldown-note"><span class="pulldown-note__label">${n.label}:</span> ${n.text}</div>`;
+                        });
+                        html += `</div>`;
+                    }
+
+                    html += `</div></td></tr>`;
+                }
+            });
+
+            tbody.innerHTML = html;
+            document.getElementById('result-count').textContent = `${sorted.length} results • ${Object.keys(CONTACTS).length} orgs with contacts`;
+        }
+
+        function toggleDetail(i) {
+            const detail = document.getElementById(`detail-${i}`);
+            const arrow = document.getElementById(`arrow-${i}`);
+            if (detail) {
+                detail.classList.toggle('open');
+                arrow.classList.toggle('open');
+            }
+        }
+
+        function showTooltip(e, name, amount) {
+            const tt = document.getElementById('tooltip');
+            document.getElementById('tooltip-name').textContent = name;
+            document.getElementById('tooltip-amount').textContent = amount;
+            tt.classList.add('visible');
+            moveTooltip(e);
+        }
+        function hideTooltip() { document.getElementById('tooltip').classList.remove('visible'); }
+        function moveTooltip(e) { const tt = document.getElementById('tooltip'); tt.style.left = (e.clientX + 12) + 'px'; tt.style.top = (e.clientY - 40) + 'px'; }
+
+        document.getElementById('search').addEventListener('input', e => { searchTerm = e.target.value; render(); });
+
+        document.getElementById('lean-filter').addEventListener('click', e => {
+            if (!e.target.matches('.filter-btn')) return;
+            currentLean = e.target.dataset.lean;
+            document.querySelectorAll('#lean-filter .filter-btn').forEach(b => b.className = 'filter-btn');
+            if (currentLean === 'R') e.target.classList.add('active-red');
+            else if (currentLean === 'D') e.target.classList.add('active-blue');
+            else e.target.classList.add('active');
+            render();
+        });
+
+        document.getElementById('tier-filter').addEventListener('click', e => {
+            if (!e.target.matches('.filter-btn')) return;
+            currentTier = e.target.dataset.tier;
+            document.querySelectorAll('#tier-filter .filter-btn').forEach(b => b.className = 'filter-btn');
+            e.target.classList.add('active');
+            render();
+        });
+
+        document.getElementById('cycle-select').addEventListener('change', e => { currentCycle = e.target.value; render(); });
+
+        document.querySelectorAll('th[data-sort]').forEach(th => {
+            th.addEventListener('click', () => {
+                const sort = th.dataset.sort;
+                if (currentSort === sort) sortAsc = !sortAsc;
+                else { currentSort = sort; sortAsc = sort === 'name'; }
+                document.querySelectorAll('th').forEach(t => { t.classList.remove('sorted'); const a = t.querySelector('.sort-arrow'); if (a) a.textContent = ''; });
+                th.classList.add('sorted');
+                const a = th.querySelector('.sort-arrow'); if (a) a.textContent = sortAsc ? ' ▲' : ' ▼';
+                renderTable();
+            });
+        });
+
+        function render() { renderStats(); renderChart(); renderTable(); }
+        render();
+    </script>
+</body>
+
+</html>

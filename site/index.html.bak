@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beyond Black Budget — Republican Political Video Agency</title>
+  <meta name="description" content="Beyond Black Budget is a Republican political video production agency specializing in campaign ads, opposition research videos, and high-impact digital content that wins races.">
+  <link rel="stylesheet" href="styles.css">
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23c41e3a'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial Black' font-size='18' font-weight='900' fill='white'%3EB%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       NAVIGATION
+       ═══════════════════════════════════════════ -->
+  <nav class="nav" id="nav">
+    <div class="container nav__inner">
+      <a href="#" class="nav__logo" id="nav-logo">BEYOND <span>BLACK</span> BUDGET</a>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#showreel">Showreel</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#approach">Process</a></li>
+      </ul>
+      <a href="#contact" class="nav__cta" id="nav-cta">Get Briefed</a>
+      <button class="nav__toggle" id="nav-toggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════
+       HERO
+       ═══════════════════════════════════════════ -->
+  <section class="hero" id="hero">
+    <div class="hero__bg"></div>
+    <div class="hero__accent-line"></div>
+    <div class="hero__content">
+      <div class="hero__eyebrow">Republican Political Video Agency</div>
+      <h1 class="hero__title">
+        <span class="word" data-text="BEYOND">BEYOND</span>
+        <span class="word" data-text="BLACK">BLACK</span>
+        <span class="word" data-text="BUDGET">BUDGET</span>
+      </h1>
+      <div class="hero__rule"></div>
+      <p class="hero__subtitle">
+        We produce <strong>high-impact political video</strong> that exposes the truth,
+        moves the needle, and <strong>wins races</strong>. No half measures.
+      </p>
+      <div class="hero__actions">
+        <a href="#contact" class="btn-primary" id="hero-cta">Start Your Campaign</a>
+        <a href="#showreel" class="btn-ghost" id="hero-reel">Watch Reel ▸</a>
+      </div>
+    </div>
+    <div class="hero__scroll">
+      <span>Scroll</span>
+      <div class="hero__scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       TICKER / STATS
+       ═══════════════════════════════════════════ -->
+  <section class="ticker" id="ticker">
+    <div class="container ticker__inner stagger" id="ticker-inner">
+      <div class="ticker__stat">
+        <div class="ticker__number" id="stat-1">140<span>+</span></div>
+        <div class="ticker__label">Races Won</div>
+      </div>
+      <div class="ticker__stat">
+        <div class="ticker__number" id="stat-2">500<span>M</span></div>
+        <div class="ticker__label">Ad Impressions</div>
+      </div>
+      <div class="ticker__stat">
+        <div class="ticker__number" id="stat-3">38</div>
+        <div class="ticker__label">States Covered</div>
+      </div>
+      <div class="ticker__stat">
+        <div class="ticker__number" id="stat-4">24<span>/7</span></div>
+        <div class="ticker__label">War Room Ready</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SERVICES
+       ═══════════════════════════════════════════ -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="section__header reveal" id="services-header">
+        <div class="section__eyebrow">What We Do</div>
+        <h2 class="section__title">Weapons-Grade<br>Political Content</h2>
+        <p class="section__subtitle">Every frame engineered to cut through the noise and deliver your message with maximum impact.</p>
+      </div>
+      <div class="services__grid stagger" id="services-grid">
+        <div class="service-card" id="service-1">
+          <div class="service-card__number">01</div>
+          <div class="service-card__icon">⚡</div>
+          <h3 class="service-card__title">Campaign Ads</h3>
+          <p class="service-card__desc">30-second and 60-second spots that dominate airwaves and digital feeds. From concept through broadcast-ready delivery.</p>
+        </div>
+        <div class="service-card" id="service-2">
+          <div class="service-card__number">02</div>
+          <div class="service-card__icon">🎯</div>
+          <h3 class="service-card__title">Opposition Research</h3>
+          <p class="service-card__desc">Forensically researched, legally vetted video content that exposes your opponent's record. Every claim sourced and documented.</p>
+        </div>
+        <div class="service-card" id="service-3">
+          <div class="service-card__number">03</div>
+          <div class="service-card__icon">📡</div>
+          <h3 class="service-card__title">Digital Strategy</h3>
+          <p class="service-card__desc">Micro-targeted video for social platforms. We optimize for engagement, shares, and conversion across every major platform.</p>
+        </div>
+        <div class="service-card" id="service-4">
+          <div class="service-card__number">04</div>
+          <div class="service-card__icon">🔴</div>
+          <h3 class="service-card__title">Rapid Response</h3>
+          <p class="service-card__desc">24-hour turnaround on counter-messaging and crisis response video. When the news cycle hits, we're already in production.</p>
+        </div>
+        <div class="service-card" id="service-5">
+          <div class="service-card__number">05</div>
+          <div class="service-card__icon">🎬</div>
+          <h3 class="service-card__title">Documentary & Long-Form</h3>
+          <p class="service-card__desc">Investigative documentaries and exposés that drive the narrative. Deep storytelling meets political strategy.</p>
+        </div>
+        <div class="service-card" id="service-6">
+          <div class="service-card__number">06</div>
+          <div class="service-card__icon">📊</div>
+          <h3 class="service-card__title">Analytics & Testing</h3>
+          <p class="service-card__desc">A/B tested creative with real-time performance dashboards. Data-driven decisions on every cut, every frame, every message.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SHOWREEL
+       ═══════════════════════════════════════════ -->
+  <section class="showreel" id="showreel">
+    <div class="container">
+      <div class="section__header reveal" id="showreel-header">
+        <div class="section__eyebrow">Featured Reel</div>
+        <h2 class="section__title">See The Work</h2>
+      </div>
+      <div class="showreel__video reveal" id="showreel-video">
+        <div class="showreel__video-bg"></div>
+        <div class="showreel__video-overlay" id="play-trigger">
+          <div class="play-btn"></div>
+        </div>
+      </div>
+      <div class="showreel__label">BBB_SHOWREEL_2026.MP4 — 03:42</div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       WORK / PORTFOLIO
+       ═══════════════════════════════════════════ -->
+  <section class="work" id="work">
+    <div class="container">
+      <div class="section__header reveal" id="work-header">
+        <div class="section__eyebrow">Selected Work</div>
+        <h2 class="section__title">Campaigns That<br>Changed The Game</h2>
+        <p class="section__subtitle">Every project is classified until it airs. Here's what we can show you.</p>
+      </div>
+      <div class="work__grid stagger" id="work-grid">
+        <div class="work-card" id="work-1">
+          <div class="work-card__image" style="background: linear-gradient(135deg, #1a0a0a 0%, #2a1015 50%, #0a0a1a 100%);"></div>
+          <div class="work-card__overlay">
+            <div class="work-card__tag">Senate Race — 2024</div>
+            <h3 class="work-card__title">Operation Red Wave</h3>
+          </div>
+          <div class="work-card__arrow">↗</div>
+        </div>
+        <div class="work-card" id="work-2">
+          <div class="work-card__image" style="background: linear-gradient(135deg, #0a0a15 0%, #151525 50%, #0a1020 100%);"></div>
+          <div class="work-card__overlay">
+            <div class="work-card__tag">Governor's Race — 2024</div>
+            <h3 class="work-card__title">The Accountability Project</h3>
+          </div>
+          <div class="work-card__arrow">↗</div>
+        </div>
+        <div class="work-card" id="work-3">
+          <div class="work-card__image" style="background: linear-gradient(135deg, #150a0a 0%, #201010 50%, #100a15 100%);"></div>
+          <div class="work-card__overlay">
+            <div class="work-card__tag">Congressional — 2026</div>
+            <h3 class="work-card__title">Exposing The Record</h3>
+          </div>
+          <div class="work-card__arrow">↗</div>
+        </div>
+        <div class="work-card" id="work-4">
+          <div class="work-card__image" style="background: linear-gradient(135deg, #0a0f15 0%, #101a25 50%, #050a15 100%);"></div>
+          <div class="work-card__overlay">
+            <div class="work-card__tag">PAC Campaign — 2025</div>
+            <h3 class="work-card__title">Fiscal Reckoning</h3>
+          </div>
+          <div class="work-card__arrow">↗</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       APPROACH / PROCESS
+       ═══════════════════════════════════════════ -->
+  <section class="approach" id="approach">
+    <div class="container">
+      <div class="section__header reveal" id="approach-header">
+        <div class="section__eyebrow">Our Process</div>
+        <h2 class="section__title">Four Phases.<br>Zero Compromises.</h2>
+      </div>
+      <div class="approach__grid stagger" id="approach-grid">
+        <div class="approach__step" id="step-1">
+          <div class="approach__step-number">01</div>
+          <h3 class="approach__step-title">Intelligence</h3>
+          <p class="approach__step-desc">Deep-dive into your race, your opponent, and the electorate. We don't start cameras until we know the battlefield.</p>
+        </div>
+        <div class="approach__step" id="step-2">
+          <div class="approach__step-number">02</div>
+          <h3 class="approach__step-title">Strategy</h3>
+          <p class="approach__step-desc">Message architecture, audience segmentation, and creative direction. Every frame has a purpose tied to polling and data.</p>
+        </div>
+        <div class="approach__step" id="step-3">
+          <div class="approach__step-number">03</div>
+          <h3 class="approach__step-title">Production</h3>
+          <p class="approach__step-desc">Cinematic production with broadcast-grade equipment and talent. From field shoots to studio sessions to motion graphics.</p>
+        </div>
+        <div class="approach__step" id="step-4">
+          <div class="approach__step-number">04</div>
+          <h3 class="approach__step-title">Deploy & Optimize</h3>
+          <p class="approach__step-desc">Multi-platform deployment with real-time performance tracking. We iterate based on data, not guesswork.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       QUOTE / TESTIMONIAL
+       ═══════════════════════════════════════════ -->
+  <section class="quote-section" id="quote">
+    <div class="container reveal" id="quote-content">
+      <blockquote class="quote__text">
+        They don't just make ads — they build <em>narrative weapons</em>. Our opponent's numbers dropped 12 points in two weeks. Beyond Black Budget is the reason we won.
+      </blockquote>
+      <div class="quote__attribution">
+        <span class="quote__attribution-name">— Senior Campaign Strategist, U.S. Senate Race 2024</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       CTA
+       ═══════════════════════════════════════════ -->
+  <section class="cta" id="contact">
+    <div class="container reveal" id="cta-content">
+      <h2 class="cta__title">Ready To<br><span>Win</span> Your Race?</h2>
+      <p class="cta__subtitle">Operations are confidential. Consultations are direct. No intake forms — just a secure conversation about your campaign.</p>
+      <div class="cta__actions">
+        <a href="mailto:ops@beyondblackbudget.com" class="btn-primary" id="cta-primary">Request Briefing</a>
+        <a href="tel:+12025551776" class="btn-ghost" id="cta-secondary">Secure Line: (202) 555-1776</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════════ -->
+  <footer class="footer" id="footer">
+    <div class="container footer__inner">
+      <div class="footer__logo">BEYOND <span>BLACK</span> BUDGET</div>
+      <ul class="footer__links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#approach">Process</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="footer__legal">© 2026 Beyond Black Budget LLC. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

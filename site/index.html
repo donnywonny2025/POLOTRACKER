@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deep State Media — Political Video Production</title>
+  <meta name="description"
+    content="Deep State Media is a political video production company specializing in campaign ads, opposition research videos, digital strategy content, and high-impact video that wins races. deepstatemedia.io">
+  <link rel="stylesheet" href="styles.css">
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%230a0a0a'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%2300e676' stroke-width='1.5'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%2300e676'/%3E%3Cline x1='16' y1='6' x2='16' y2='13' stroke='%2300e676' stroke-width='1'/%3E%3Cline x1='16' y1='19' x2='16' y2='26' stroke='%2300e676' stroke-width='1'/%3E%3Cline x1='6' y1='16' x2='13' y2='16' stroke='%2300e676' stroke-width='1'/%3E%3Cline x1='19' y1='16' x2='26' y2='16' stroke='%2300e676' stroke-width='1'/%3E%3C/svg%3E">
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       NAVIGATION
+       ═══════════════════════════════════════════ -->
+  <nav class="nav" id="nav">
+    <div class="container nav__inner">
+      <a href="#" class="nav__logo" id="nav-logo">DEEP <span>STATE</span> MEDIA</a>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#showreel">Reel</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#approach">Process</a></li>
+      </ul>
+      <a href="#contact" class="nav__cta" id="nav-cta">Get Briefed</a>
+      <button class="nav__toggle" id="nav-toggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════
+       HERO — Autoplay Background Video
+       ═══════════════════════════════════════════ -->
+  <section class="hero" id="hero">
+    <!-- Vimeo background video (autoplay, muted, loop) -->
+    <div class="hero__video-bg" id="hero-video-bg">
+      <iframe src="https://player.vimeo.com/video/545053719?background=1&autoplay=1&loop=1&byline=0&title=0&muted=1"
+        frameborder="0" allow="autoplay; fullscreen" allowfullscreen id="hero-vimeo">
+      </iframe>
+    </div>
+    <!-- Dark overlay for text readability -->
+    <div class="hero__overlay"></div>
+    <div class="hero__accent-line"></div>
+
+    <!-- Animated grid background -->
+    <canvas id="hero-grid-canvas" class="hero__grid-canvas"></canvas>
+
+    <div class="hero__content">
+      <div class="hero__eyebrow">Political Video Production</div>
+      <h1 class="hero__title">
+        <span class="word" data-text="DEEP">DEEP</span>
+        <span class="word" data-text="STATE">STATE</span>
+        <span class="word accent-word" data-text="MEDIA">MEDIA</span>
+      </h1>
+      <div class="hero__rule"></div>
+      <p class="hero__subtitle">
+        We produce <strong>high-impact political video</strong> that moves the needle,
+        shifts the narrative, and <strong>wins races</strong>. No half measures.
+      </p>
+      <div class="hero__actions">
+        <a href="#contact" class="btn-primary" id="hero-cta">Start Your Campaign</a>
+        <a href="#showreel" class="btn-ghost" id="hero-reel">Watch Reel ▸</a>
+      </div>
+    </div>
+    <div class="hero__scroll">
+      <span>Scroll</span>
+      <div class="hero__scroll-line"></div>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       TICKER / STATS
+       ═══════════════════════════════════════════ -->
+  <section class="ticker" id="ticker">
+    <div class="container ticker__inner stagger" id="ticker-inner">
+      <div class="ticker__stat">
+        <div class="ticker__number" id="stat-1">140<span>+</span></div>
+        <div class="ticker__label">Races Won</div>
+      </div>
+      <div class="ticker__stat">
+        <div class="ticker__number" id="stat-2">500<span>M</span></div>
+        <div class="ticker__label">Ad Impressions</div>
+      </div>
+      <div class="ticker__stat">
+        <div class="ticker__number" id="stat-3">38</div>
+        <div class="ticker__label">States Covered</div>
+      </div>
+      <div class="ticker__stat">
+        <div class="ticker__number" id="stat-4">24<span>/7</span></div>
+        <div class="ticker__label">War Room Ready</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       ABOUT
+       ═══════════════════════════════════════════ -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about__inner reveal">
+        <div class="about__text">
+          <div class="section__eyebrow">Who We Are</div>
+          <h2 class="section__title">Your Campaign's<br>Secret Weapon</h2>
+          <p class="about__description">
+            Deep State Media is a full-service political video production company. We build
+            the content that defines campaigns — from broadcast spots to digital-first strategy,
+            from opposition research films to rapid-response war room operations.
+          </p>
+          <p class="about__description">
+            Our team of producers, editors, strategists, and data analysts have been behind some
+            of the most effective political advertising in recent cycles. We don't just make video —
+            we engineer outcomes.
+          </p>
+          <div class="about__url">
+            <span class="about__url-protocol">https://</span>deepstatemedia.io
+          </div>
+        </div>
+        <div class="about__visual">
+          <div class="about__terminal">
+            <div class="about__terminal-header">
+              <span class="about__terminal-dot"></span>
+              <span class="about__terminal-dot"></span>
+              <span class="about__terminal-dot"></span>
+              <span class="about__terminal-title">dsm_ops.log</span>
+            </div>
+            <div class="about__terminal-body" id="terminal-body">
+              <div class="terminal-line"><span class="terminal-prompt">$</span> cat mission.txt</div>
+              <div class="terminal-line output">> MISSION: Win races with video</div>
+              <div class="terminal-line output">> STATUS: Operational</div>
+              <div class="terminal-line output">> CLEARANCE: Campaign-level</div>
+              <div class="terminal-line output">> TURNAROUND: 24hrs or less</div>
+              <div class="terminal-line"><span class="terminal-prompt">$</span> uptime</div>
+              <div class="terminal-line output">> 2,190 days in production</div>
+              <div class="terminal-line"><span class="terminal-prompt">$</span> <span class="terminal-cursor">_</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SERVICES
+       ═══════════════════════════════════════════ -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="section__header reveal" id="services-header">
+        <div class="section__eyebrow">What We Do</div>
+        <h2 class="section__title">Weapons-Grade<br>Political Content</h2>
+        <p class="section__subtitle">Every frame engineered to cut through the noise and deliver your message with
+          maximum impact.</p>
+      </div>
+      <div class="services__grid stagger" id="services-grid">
+        <div class="service-card" id="service-1">
+          <div class="service-card__number">01</div>
+          <div class="service-card__icon">◎</div>
+          <h3 class="service-card__title">Campaign Ads</h3>
+          <p class="service-card__desc">30-second and 60-second spots that dominate airwaves and digital feeds. From
+            concept through broadcast-ready delivery.</p>
+        </div>
+        <div class="service-card" id="service-2">
+          <div class="service-card__number">02</div>
+          <div class="service-card__icon">⬡</div>
+          <h3 class="service-card__title">Opposition Research</h3>
+          <p class="service-card__desc">Forensically researched, legally vetted video content that exposes your
+            opponent's record. Every claim sourced and documented.</p>
+        </div>
+        <div class="service-card" id="service-3">
+          <div class="service-card__number">03</div>
+          <div class="service-card__icon">◈</div>
+          <h3 class="service-card__title">Digital Strategy</h3>
+          <p class="service-card__desc">Micro-targeted video for social platforms. We optimize for engagement, shares,
+            and conversion across every major platform.</p>
+        </div>
+        <div class="service-card" id="service-4">
+          <div class="service-card__number">04</div>
+          <div class="service-card__icon">◉</div>
+          <h3 class="service-card__title">Rapid Response</h3>
+          <p class="service-card__desc">24-hour turnaround on counter-messaging and crisis response video. When the news
+            cycle hits, we're already in production.</p>
+        </div>
+        <div class="service-card" id="service-5">
+          <div class="service-card__number">05</div>
+          <div class="service-card__icon">△</div>
+          <h3 class="service-card__title">Documentary & Long-Form</h3>
+          <p class="service-card__desc">Investigative documentaries and exposés that drive the narrative. Deep
+            storytelling meets political strategy.</p>
+        </div>
+        <div class="service-card" id="service-6">
+          <div class="service-card__number">06</div>
+          <div class="service-card__icon">⊕</div>
+          <h3 class="service-card__title">Analytics & Testing</h3>
+          <p class="service-card__desc">A/B tested creative with real-time performance dashboards. Data-driven decisions
+            on every cut, every frame, every message.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SHOWREEL
+       ═══════════════════════════════════════════ -->
+  <section class="showreel" id="showreel">
+    <div class="container">
+      <div class="section__header reveal" id="showreel-header">
+        <div class="section__eyebrow">Featured Reel</div>
+        <h2 class="section__title">See The Work</h2>
+      </div>
+      <div class="showreel__video reveal" id="showreel-video">
+        <iframe src="https://player.vimeo.com/video/545053719?autoplay=1&loop=1&muted=1&badge=0&autopause=0&player_id=0"
+          width="100%" height="100%" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen
+          style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Deep State Media Showreel">
+        </iframe>
+      </div>
+      <div class="showreel__label">DSM_SHOWREEL_2026 — AUTOPLAY</div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       WORK / PORTFOLIO
+       ═══════════════════════════════════════════ -->
+  <section class="work" id="work">
+    <div class="container">
+      <div class="section__header reveal" id="work-header">
+        <div class="section__eyebrow">Selected Work</div>
+        <h2 class="section__title">Campaigns That<br>Changed The Game</h2>
+        <p class="section__subtitle">Every project is classified until it airs. Here's what we can show you.</p>
+      </div>
+      <div class="work__grid stagger" id="work-grid">
+        <div class="work-card" id="work-1">
+          <div class="work-card__image"
+            style="background-image: url('https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?w=800&q=80');">
+          </div>
+          <div class="work-card__overlay">
+            <div class="work-card__tag">U.S. Senate Campaign</div>
+            <h3 class="work-card__title">Operation Turnout</h3>
+          </div>
+          <div class="work-card__arrow">↗</div>
+        </div>
+        <div class="work-card" id="work-2">
+          <div class="work-card__image"
+            style="background-image: url('https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=800&q=80');">
+          </div>
+          <div class="work-card__overlay">
+            <div class="work-card__tag">Gubernatorial Race</div>
+            <h3 class="work-card__title">The Accountability Ads</h3>
+          </div>
+          <div class="work-card__arrow">↗</div>
+        </div>
+        <div class="work-card" id="work-3">
+          <div class="work-card__image"
+            style="background-image: url('https://images.unsplash.com/photo-1504711434969-e33886168d6c?w=800&q=80');">
+          </div>
+          <div class="work-card__overlay">
+            <div class="work-card__tag">Super PAC</div>
+            <h3 class="work-card__title">Follow The Money</h3>
+          </div>
+          <div class="work-card__arrow">↗</div>
+        </div>
+        <div class="work-card" id="work-4">
+          <div class="work-card__image"
+            style="background-image: url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80');">
+          </div>
+          <div class="work-card__overlay">
+            <div class="work-card__tag">Digital Campaign</div>
+            <h3 class="work-card__title">Swing State Blitz</h3>
+          </div>
+          <div class="work-card__arrow">↗</div>
+        </div>
+        <div class="work-card" id="work-5">
+          <div class="work-card__image"
+            style="background-image: url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80');">
+          </div>
+          <div class="work-card__overlay">
+            <div class="work-card__tag">Opposition Research</div>
+            <h3 class="work-card__title">The Record Exposed</h3>
+          </div>
+          <div class="work-card__arrow">↗</div>
+        </div>
+        <div class="work-card" id="work-6">
+          <div class="work-card__image"
+            style="background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80');">
+          </div>
+          <div class="work-card__overlay">
+            <div class="work-card__tag">Documentary Series</div>
+            <h3 class="work-card__title">Deep Background</h3>
+          </div>
+          <div class="work-card__arrow">↗</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       APPROACH / PROCESS
+       ═══════════════════════════════════════════ -->
+  <section class="approach" id="approach">
+    <div class="container">
+      <div class="section__header reveal" id="approach-header">
+        <div class="section__eyebrow">Our Process</div>
+        <h2 class="section__title">Four Phases.<br>Zero Compromises.</h2>
+      </div>
+      <div class="approach__grid stagger" id="approach-grid">
+        <div class="approach__step" id="step-1">
+          <div class="approach__step-number">01</div>
+          <h3 class="approach__step-title">Intelligence</h3>
+          <p class="approach__step-desc">Deep-dive into your race, your opponent, and the electorate. We don't start
+            cameras until we know the battlefield.</p>
+        </div>
+        <div class="approach__step" id="step-2">
+          <div class="approach__step-number">02</div>
+          <h3 class="approach__step-title">Strategy</h3>
+          <p class="approach__step-desc">Message architecture, audience segmentation, and creative direction. Every
+            frame has a purpose tied to polling and data.</p>
+        </div>
+        <div class="approach__step" id="step-3">
+          <div class="approach__step-number">03</div>
+          <h3 class="approach__step-title">Production</h3>
+          <p class="approach__step-desc">Cinematic production with broadcast-grade equipment and talent. From field
+            shoots to studio sessions to motion graphics.</p>
+        </div>
+        <div class="approach__step" id="step-4">
+          <div class="approach__step-number">04</div>
+          <h3 class="approach__step-title">Deploy & Optimize</h3>
+          <p class="approach__step-desc">Multi-platform deployment with real-time performance tracking. We iterate based
+            on data, not guesswork.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       QUOTE / TESTIMONIAL
+       ═══════════════════════════════════════════ -->
+  <section class="quote-section" id="quote">
+    <div class="container reveal" id="quote-content">
+      <blockquote class="quote__text">
+        They don't just make ads — they build <em>narrative weapons</em>. Our opponent's numbers dropped 12 points in
+        two weeks. Deep State Media is the reason we won.
+      </blockquote>
+      <div class="quote__attribution">
+        <span class="quote__attribution-name">— Senior Campaign Strategist, U.S. Senate Race 2024</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       CLASSIFIED MARQUEE
+       ═══════════════════════════════════════════ -->
+  <section class="marquee" id="marquee">
+    <div class="marquee__track">
+      <div class="marquee__content">
+        <span>CAMPAIGNS THAT WIN</span>
+        <span class="marquee__dot">◈</span>
+        <span>VIDEO THAT DOMINATES</span>
+        <span class="marquee__dot">◈</span>
+        <span>STRATEGY THAT DELIVERS</span>
+        <span class="marquee__dot">◈</span>
+        <span>DEEPSTATEMEDIA.IO</span>
+        <span class="marquee__dot">◈</span>
+        <span>CAMPAIGNS THAT WIN</span>
+        <span class="marquee__dot">◈</span>
+        <span>VIDEO THAT DOMINATES</span>
+        <span class="marquee__dot">◈</span>
+        <span>STRATEGY THAT DELIVERS</span>
+        <span class="marquee__dot">◈</span>
+        <span>DEEPSTATEMEDIA.IO</span>
+        <span class="marquee__dot">◈</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       CTA
+       ═══════════════════════════════════════════ -->
+  <section class="cta" id="contact">
+    <div class="container reveal" id="cta-content">
+      <h2 class="cta__title">Ready To<br><span>Win</span> Your Race?</h2>
+      <p class="cta__subtitle">Operations are confidential. Consultations are direct. No intake forms — just a secure
+        conversation about your campaign.</p>
+      <div class="cta__actions">
+        <a href="mailto:ops@deepstatemedia.io" class="btn-primary" id="cta-primary">Request Briefing</a>
+        <a href="https://deepstatemedia.io" class="btn-ghost" id="cta-secondary" target="_blank">deepstatemedia.io</a>
+      </div>
+      <div class="cta__encryption-note">
+        <span class="cta__lock-icon">🔒</span>
+        All campaign communications are confidential and secure.
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════════ -->
+  <footer class="footer" id="footer">
+    <div class="container footer__inner">
+      <div class="footer__logo">DEEP <span>STATE</span> MEDIA</div>
+      <ul class="footer__links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#approach">Process</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="footer__legal">© 2026 Deep State Media LLC. All rights reserved. | deepstatemedia.io</div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
