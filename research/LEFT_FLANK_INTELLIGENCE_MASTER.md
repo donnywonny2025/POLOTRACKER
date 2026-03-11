@@ -68,7 +68,20 @@
 ## FIRMS — NO CONTACT FOUND YET
 *These appeared in FEC data but have no public web presence. Call main number or use LinkedIn.*
 
-Launchpad Strategies, Mothership Strategies, Assembly House, Beacon Media, Black Pine Media, Bluewest Media, BNY Production, Break Something Inc, Bullhorn Communications, Conexion Political, Digital Media Placement Service, FDM Connects, Gen2 Solutions, Left Hook Communications, Liftoff Campaigns, Main Street Media Group, Message Digital, Midpoint Media, Mission Control, Nebo Media, Onymous Media, Resonance Campaigns, Smart Media Group (Dem), Solidarity Strategies, Sunny Day Strategies, Symmetry Media, Technicolor Political, Ventura Media Partners, Wilke Communications, AMS Communications, Ascent Media
+Launchpad Strategies, Mothership Strategies, Assembly House, Beacon Media, Black Pine Media, Bluewest Media, BNY Production, Break Something Inc, Bullhorn Communications, Conexion Political, Digital Media Placement Service, FDM Connects, Left Hook Communications, Liftoff Campaigns, Message Digital, Midpoint Media, Mission Control, Nebo Media, Onymous Media, Resonance Campaigns, Smart Media Group (Dem), Solidarity Strategies, Sunny Day Strategies, Symmetry Media, Technicolor Political, Ventura Media Partners, Wilke Communications, AMS Communications, Ascent Media
+
+---
+
+## NEWLY CONFIRMED — GPS Impact, AlignCo, C Plus K
+
+| Firm | Contact | Role | Notes |
+|---|---|---|---|
+| **GPS Impact / GPS Media** | Andi Johnson, Jay Howser, Roy Temple | Partners | $35.6M 2024; full-service with in-house production; Josh Shapiro, Amy Klobuchar, Angela Alsobrooks |
+| **GPS Impact / GPS Media** | Victoria Matthews | VP, GPS Media | **Best contact for production partnership** — she runs the media/production arm |
+| **GPS Impact / GPS Media** | Matthew Licht | Production Specialist | In-house production; at $35M they need overflow |
+| **AlignCo** | Alison Betty | Co-Founder | Full-service ad shop; progressive campaigns; alignco.us |
+| **AlignCo** | David Smith | Co-Founder | Co-founder; award-winning campaigns |
+| **C Plus K (Chong & Koster)** | — | Digital strategy | Pioneered Facebook voter contact; DNC + Harris campaign; digital-first, lower priority for video production |
 
 ---
 
@@ -86,9 +99,9 @@ Launchpad Strategies, Mothership Strategies, Assembly House, Beacon Media, Black
 | McKenna Media | $44,902 | Consulting | Added to Circle 1 |
 | Magnus Pearson Media | $40,005 | Ad-making | Added to Circle 1 |
 | Chambers Lopez Strategies | $43,901 | Full-service | New — Dr. Lorena Chambers (CEO) |
-| GPS Impact / GPS Media | $24,758 | TV production + buying | New — need principals |
-| AlignCo LLC | $46,937 | Unknown | Need to research |
-| C Plus K LLC | $61,472 | Unknown | Need to research |
+| GPS Impact / GPS Media | $24,758 | TV production + buying | **Andi Johnson, Jay Howser, Roy Temple (partners); Victoria Matthews (VP GPS Media); Tim Persico (Principal); Matthew Licht (Production Specialist)** — gpsimpact.com |
+| AlignCo LLC | $46,937 | Full-service ad shop | **Alison Betty + David Smith (founders)** — alignco.us — "make ads that grow movements, elect bold leaders" |
+| C Plus K LLC | $61,472 | Digital strategy + Facebook ads | **Chong and Koster** — pioneered Facebook ads as primary voter contact (2012+); worked closely with DNC since 2016; Harris campaign 2023 |
 
 ## House Majority PAC (C00495028)
 *2024 total spend: ~$200M+*
@@ -197,8 +210,20 @@ When a new PAC materializes with $30M to spend, here is the chain:
 | **Mentzer Media** | Bruce Mentzer | Principal | bmentzer@mentzermedia.com ✓ | (410) 825-7034 ✓ | Towson MD; GOP media buyer |
 | **Strategic Media Services** | — | — | info@strategicmediaservices.com ✓ | (202) 337-5700 ✓ | Arlington VA; GOP media buyers since 1996 |
 
+## REPUBLICAN PAC LAYER — NEWLY CONFIRMED
+*Source: CLF, NRSC, Senate Leadership Fund FEC data*
+
+| Firm | Contact | Title | Email | Phone | 2024 PAC Spend | Notes |
+|---|---|---|---|---|---|---|
+| **FlexPoint Media** | Kegan Beran | President/Co-Founder | info@flexpointmedia.com ✓ | (202) 417-2274 ✓ | $270M total | New Albany OH; largest Republican media buyer; CLF ($151M) primary client; omnichannel TV/CTV/digital |
+| **FlexPoint Media** | Tim Cameron | CEO/Co-Founder | info@flexpointmedia.com ✓ | (202) 417-2274 ✓ | Same | Co-founder; CTV specialist |
+| **Main Street Media Group** | Patti Heck | President | Via website form | msmg.tv | $139M SLF | Alexandria VA; Republican media buying; $1B+ placed since 2001; issue advocacy + political |
+| **Gen2 Solutions** | — | — | — | — | $108M total | NRSC ($22M) + SLF ($20M) + Tim Sheehy MT ($13.5M); principals not yet found — LinkedIn needed |
+
+**Key insight on Republican PAC layer:** FlexPoint ($270M) and Main Street ($139M) are the two largest Republican media buyers we've found. Both are media BUYERS not production shops — but at this volume they absolutely need production partners. FlexPoint in particular has been vocal about CTV/digital production needs.
+
 ---
 
 *✓ = confirmed from official source (website, OAAA directory, or direct contact page)*
 *Unconfirmed emails = best-guess format based on firm's email pattern — verify before sending*
-*Last updated: March 2026*
+*Last updated: March 11, 2026*
