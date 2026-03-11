@@ -14,14 +14,18 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { campaigns, insights, stats, type Campaign } from "@/data/campaigns";
 import { demVendors, repVendors, vendorStats, type Vendor } from "@/data/vendors";
-import { Building2, DollarSign, Mail, Phone, Search, Star, TrendingUp, Users, Zap } from "lucide-react";
+import { Building2, DollarSign, Mail, MapPin, Phone, Search, Star, TrendingUp, Users, Zap } from "lucide-react";
 import { useState } from "react";
+
+const BATTLEGROUND_STATES = ["GA", "MI", "NC", "NH", "ME", "AZ", "PA", "OH", "NV", "WI", "FL", "NY", "CA"];
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [vendorSearch, setVendorSearch] = useState("");
   const [vendorParty, setVendorParty] = useState<string>("dem");
+  const [vendorTypeFilter, setVendorTypeFilter] = useState<string>("all");
+  const [vendorStateFilter, setVendorStateFilter] = useState<string>("all");
   const [mainTab, setMainTab] = useState("campaigns");
 
   const filteredCampaigns = campaigns.filter((campaign) => {
@@ -40,12 +44,21 @@ export default function Home() {
   const tier2Campaigns = filteredCampaigns.filter(c => c.tier === 2);
 
   const vendorList = vendorParty === "dem" ? demVendors : repVendors;
-  const filteredVendors = vendorList.filter(v =>
-    v.name.toLowerCase().includes(vendorSearch.toLowerCase()) ||
-    v.city.toLowerCase().includes(vendorSearch.toLowerCase()) ||
-    v.state.toLowerCase().includes(vendorSearch.toLowerCase()) ||
-    (v.notes || "").toLowerCase().includes(vendorSearch.toLowerCase())
-  );
+  const filteredVendors = vendorList.filter(v => {
+    const matchesSearch =
+      v.name.toLowerCase().includes(vendorSearch.toLowerCase()) ||
+      v.city.toLowerCase().includes(vendorSearch.toLowerCase()) ||
+      v.state.toLowerCase().includes(vendorSearch.toLowerCase()) ||
+      (v.notes || "").toLowerCase().includes(vendorSearch.toLowerCase());
+    const matchesType = vendorTypeFilter === "all" || v.type === vendorTypeFilter;
+    const matchesState =
+      vendorStateFilter === "all" ||
+      (v.battlegroundStates || []).includes(vendorStateFilter) ||
+      v.state === vendorStateFilter;
+    return matchesSearch && matchesType && matchesState;
+  });
+
+  const priorityVendors = vendorList.filter(v => v.priority === 5);
 
   const getPriorityColor = (priority: number) => {
     if (priority === 5) return "text-amber-500";
@@ -78,6 +91,8 @@ export default function Home() {
     return <Badge variant="outline" className={className}>{label}</Badge>;
   };
 
+  const totalVendorCount = vendorStats.totalDemFirms + vendorStats.totalRepFirms;
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-50">
       {/* Header */}
@@ -90,8 +105,8 @@ export default function Home() {
                   <Zap className="h-4 w-4 text-white" />
                 </div>
                 <div>
-                  <h1 className="text-2xl font-bold tracking-tight text-slate-900">Left Flank</h1>
-                  <p className="text-slate-500 text-xs">2026 Outreach Intelligence Dashboard</p>
+                  <h1 className="text-2xl font-bold tracking-tight text-slate-900">Left Flank / Deep State Media</h1>
+                  <p className="text-slate-500 text-xs">2026 Election Cycle Outreach Intelligence</p>
                 </div>
               </div>
             </div>
@@ -101,12 +116,12 @@ export default function Home() {
                 <div className="text-slate-500 text-xs">Campaigns</div>
               </div>
               <div className="text-center">
-                <div className="font-bold text-slate-900">{vendorStats.totalDemFirms + vendorStats.totalRepFirms}</div>
-                <div className="text-slate-500 text-xs">Vendors</div>
+                <div className="font-bold text-slate-900">{totalVendorCount}</div>
+                <div className="text-slate-500 text-xs">Media Firms</div>
               </div>
               <div className="text-center">
                 <div className="font-bold text-emerald-600">$10.8B</div>
-                <div className="text-slate-500 text-xs">2026 Ad Spend</div>
+                <div className="text-slate-500 text-xs">2026 Est. Ad Spend</div>
               </div>
             </div>
           </div>
@@ -269,7 +284,7 @@ export default function Home() {
                   <CardTitle className="text-xs font-medium text-blue-900">Dem Media Firms</CardTitle>
                 </CardHeader>
                 <CardContent className="px-4 pb-4">
-                  <div className="text-3xl font-bold text-blue-600">{vendorStats.totalDemFirms}</div>
+                  <div className="text-3xl font-bold text-blue-600">{demVendors.length}</div>
                   <p className="text-xs text-blue-700 mt-1">Left Flank targets</p>
                 </CardContent>
               </Card>
@@ -278,13 +293,13 @@ export default function Home() {
                   <CardTitle className="text-xs font-medium text-red-900">Rep Media Firms</CardTitle>
                 </CardHeader>
                 <CardContent className="px-4 pb-4">
-                  <div className="text-3xl font-bold text-red-600">{vendorStats.totalRepFirms}</div>
+                  <div className="text-3xl font-bold text-red-600">{repVendors.length}</div>
                   <p className="text-xs text-red-700 mt-1">Deep State targets</p>
                 </CardContent>
               </Card>
               <Card className="border-emerald-200 bg-emerald-50/50">
                 <CardHeader className="pb-2 pt-4 px-4">
-                  <CardTitle className="text-xs font-medium text-emerald-900">Total 2026 Spend</CardTitle>
+                  <CardTitle className="text-xs font-medium text-emerald-900">2026 Est. Ad Spend</CardTitle>
                 </CardHeader>
                 <CardContent className="px-4 pb-4">
                   <div className="text-3xl font-bold text-emerald-600">$10.8B</div>
@@ -307,49 +322,129 @@ export default function Home() {
               <CardHeader className="pb-3">
                 <CardTitle className="flex items-center gap-2 text-base">
                   <DollarSign className="h-4 w-4 text-purple-600" />
-                  Vendor Strategy
+                  The Strategy: Firms First, Campaigns Second
                 </CardTitle>
               </CardHeader>
               <CardContent className="text-sm text-slate-700 space-y-2">
-                <p><strong>These firms are your primary targets</strong> — not the campaigns directly. Media consulting firms subcontract production work to shops like Left Flank. One firm relationship = multiple campaigns worth of work.</p>
-                <p><strong>The model:</strong> Become the go-to remote production shop for 2-3 firms. They call you when they're buried in October. You deliver fast, broadcast-ready, on deadline.</p>
-                <p className="text-purple-700 font-medium">Source: FEC 2024 Bulk Disbursement Data • {vendorStats.dataSource}</p>
+                <p><strong>These firms are your primary targets</strong> — not the campaigns directly. Media consulting firms subcontract production work to shops like Left Flank and Deep State Media. One firm relationship = multiple campaigns worth of work.</p>
+                <p><strong>The pitch:</strong> "We saw you worked heavily in Georgia and Michigan in 2024. Those are two of the biggest races in 2026. We're available for the cycle." — This is a warm, informed pitch, not a cold call.</p>
+                <p><strong>The model:</strong> Become the go-to remote production shop for 2–3 firms. They call you when they're buried in October. You deliver fast, broadcast-ready, on deadline.</p>
+                <p className="text-purple-700 font-medium text-xs">Source: FEC 2024 Bulk Disbursement Data ({vendorStats.totalFECVendors.toLocaleString()} vendors analyzed) • Updated {vendorStats.lastUpdated}</p>
               </CardContent>
             </Card>
 
-            {/* Search + Party Filter */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-                <Input
-                  placeholder="Search firms by name, city, or state..."
-                  value={vendorSearch}
-                  onChange={(e) => setVendorSearch(e.target.value)}
-                  className="pl-10"
-                />
+            {/* Priority Firms Section */}
+            {priorityVendors.length > 0 && vendorSearch === "" && vendorTypeFilter === "all" && vendorStateFilter === "all" && (
+              <div>
+                <div className="flex items-center gap-3 mb-4">
+                  <h2 className="text-lg font-bold text-slate-900">
+                    {vendorParty === "dem" ? "🔵 Left Flank Priority Targets" : "🔴 Deep State Media Priority Targets"}
+                  </h2>
+                  <Badge className="bg-amber-500 text-white">{priorityVendors.length} firms</Badge>
+                </div>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mb-6">
+                  {priorityVendors.map((vendor, idx) => (
+                    <VendorCard key={vendor.id} vendor={vendor} rank={idx + 1} formatSpend={formatSpend} getPriorityColor={getPriorityColor} getVendorTypeBadge={getVendorTypeBadge} highlight />
+                  ))}
+                </div>
+                <div className="border-t border-slate-200 pt-4">
+                  <h3 className="text-base font-semibold text-slate-700 mb-4">All {vendorParty === "dem" ? "Democratic" : "Republican"} Firms</h3>
+                </div>
               </div>
-              <Tabs value={vendorParty} onValueChange={setVendorParty} className="w-full sm:w-auto">
-                <TabsList>
-                  <TabsTrigger value="dem" className="flex items-center gap-1">
-                    <span className="w-2 h-2 rounded-full bg-blue-500 inline-block" />
-                    Dem ({demVendors.length})
-                  </TabsTrigger>
-                  <TabsTrigger value="rep" className="flex items-center gap-1">
-                    <span className="w-2 h-2 rounded-full bg-red-500 inline-block" />
-                    Rep ({repVendors.length})
-                  </TabsTrigger>
-                </TabsList>
-              </Tabs>
+            )}
+
+            {/* Search + Filters */}
+            <div className="flex flex-col gap-3">
+              <div className="flex flex-col sm:flex-row gap-3">
+                <div className="relative flex-1">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                  <Input
+                    placeholder="Search firms by name, city, state, or notes..."
+                    value={vendorSearch}
+                    onChange={(e) => setVendorSearch(e.target.value)}
+                    className="pl-10"
+                  />
+                </div>
+                <Tabs value={vendorParty} onValueChange={(v) => { setVendorParty(v); setVendorStateFilter("all"); setVendorTypeFilter("all"); }} className="w-full sm:w-auto">
+                  <TabsList>
+                    <TabsTrigger value="dem" className="flex items-center gap-1">
+                      <span className="w-2 h-2 rounded-full bg-blue-500 inline-block" />
+                      Dem ({demVendors.length})
+                    </TabsTrigger>
+                    <TabsTrigger value="rep" className="flex items-center gap-1">
+                      <span className="w-2 h-2 rounded-full bg-red-500 inline-block" />
+                      Rep ({repVendors.length})
+                    </TabsTrigger>
+                  </TabsList>
+                </Tabs>
+              </div>
+
+              {/* Secondary Filters */}
+              <div className="flex flex-wrap gap-2 items-center">
+                <span className="text-xs text-slate-500 font-medium">Filter by type:</span>
+                {(["all", "media-consulting", "production", "digital", "buying"] as const).map(t => (
+                  <button
+                    key={t}
+                    onClick={() => setVendorTypeFilter(t)}
+                    className={`text-xs px-3 py-1 rounded-full border transition-colors ${
+                      vendorTypeFilter === t
+                        ? "bg-slate-800 text-white border-slate-800"
+                        : "bg-white text-slate-600 border-slate-300 hover:border-slate-500"
+                    }`}
+                  >
+                    {t === "all" ? "All Types" : t === "media-consulting" ? "Media Consulting" : t === "production" ? "Production" : t === "digital" ? "Digital" : "Media Buying"}
+                  </button>
+                ))}
+                <span className="text-xs text-slate-400 mx-1">|</span>
+                <span className="text-xs text-slate-500 font-medium">Battleground:</span>
+                <button
+                  onClick={() => setVendorStateFilter("all")}
+                  className={`text-xs px-3 py-1 rounded-full border transition-colors ${
+                    vendorStateFilter === "all"
+                      ? "bg-slate-800 text-white border-slate-800"
+                      : "bg-white text-slate-600 border-slate-300 hover:border-slate-500"
+                  }`}
+                >
+                  All States
+                </button>
+                {BATTLEGROUND_STATES.map(s => (
+                  <button
+                    key={s}
+                    onClick={() => setVendorStateFilter(s)}
+                    className={`text-xs px-3 py-1 rounded-full border transition-colors ${
+                      vendorStateFilter === s
+                        ? "bg-blue-600 text-white border-blue-600"
+                        : "bg-white text-slate-600 border-slate-300 hover:border-blue-400"
+                    }`}
+                  >
+                    {s}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Results count */}
+            <div className="text-sm text-slate-500">
+              Showing {filteredVendors.length} of {vendorList.length} firms
+              {vendorTypeFilter !== "all" && ` • Type: ${vendorTypeFilter}`}
+              {vendorStateFilter !== "all" && ` • Battleground: ${vendorStateFilter}`}
             </div>
 
             {/* Vendor List */}
             <div className="space-y-3">
               {filteredVendors.map((vendor, idx) => (
-                <VendorCard key={vendor.id} vendor={vendor} rank={idx + 1} formatSpend={formatSpend} getPriorityColor={getPriorityColor} getVendorTypeBadge={getVendorTypeBadge} />
+                <VendorCard
+                  key={vendor.id}
+                  vendor={vendor}
+                  rank={idx + 1}
+                  formatSpend={formatSpend}
+                  getPriorityColor={getPriorityColor}
+                  getVendorTypeBadge={getVendorTypeBadge}
+                />
               ))}
               {filteredVendors.length === 0 && (
                 <Card className="p-12 text-center">
-                  <p className="text-slate-500">No vendors match your search.</p>
+                  <p className="text-slate-500">No vendors match your filters. Try adjusting the search or filters above.</p>
                 </Card>
               )}
             </div>
@@ -359,7 +454,7 @@ export default function Home() {
 
       <footer className="border-t bg-white mt-16 py-6">
         <div className="container text-center text-sm text-slate-500">
-          <p>Left Flank • 2026 Election Cycle Intelligence • Data: FEC Bulk Disbursements + Direct Research</p>
+          <p>Left Flank / Deep State Media • 2026 Election Cycle Intelligence • Data: FEC Bulk Disbursements + Direct Research</p>
         </div>
       </footer>
     </div>
@@ -459,17 +554,24 @@ function VendorCard({
   formatSpend,
   getPriorityColor,
   getVendorTypeBadge,
+  highlight = false,
 }: {
   vendor: Vendor;
   rank: number;
   formatSpend: (n: number) => string;
   getPriorityColor: (priority: number) => string;
   getVendorTypeBadge: (type: Vendor["type"]) => React.ReactElement;
+  highlight?: boolean;
 }) {
   const isHighPriority = vendor.priority >= 5;
+  const cardClass = highlight
+    ? "border-amber-300 bg-gradient-to-br from-amber-50/40 to-white shadow-sm"
+    : isHighPriority
+    ? "border-amber-200 bg-amber-50/10"
+    : "border-slate-200";
 
   return (
-    <Card className={`hover:shadow-md transition-shadow duration-200 ${isHighPriority ? "border-amber-300 bg-amber-50/20" : "border-slate-200"}`}>
+    <Card className={`hover:shadow-md transition-shadow duration-200 ${cardClass}`}>
       <CardContent className="p-4">
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-start gap-3 flex-1">
@@ -486,12 +588,23 @@ function VendorCard({
                 </div>
                 {isHighPriority && <Badge className="bg-amber-500 text-white text-xs">Priority</Badge>}
               </div>
-              <div className="text-sm text-slate-500 mt-0.5">{vendor.city}, {vendor.state}</div>
+              <div className="flex items-center gap-1 text-sm text-slate-500 mt-0.5">
+                <MapPin className="h-3 w-3" />
+                {vendor.city}, {vendor.state}
+              </div>
               <div className="flex items-center gap-2 mt-2 flex-wrap">
                 {getVendorTypeBadge(vendor.type)}
                 <span className="text-sm font-semibold text-emerald-700">{formatSpend(vendor.spend2024)}</span>
                 <span className="text-xs text-slate-500">{vendor.paymentCount} payments in 2024</span>
               </div>
+              {vendor.battlegroundStates && vendor.battlegroundStates.length > 0 && (
+                <div className="flex items-center gap-1 mt-2 flex-wrap">
+                  <span className="text-xs text-slate-500">2026 states:</span>
+                  {vendor.battlegroundStates.map(s => (
+                    <span key={s} className="text-xs bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-medium">{s}</span>
+                  ))}
+                </div>
+              )}
               {vendor.notes && (
                 <div className="mt-2 text-sm text-slate-600 bg-slate-50 rounded px-3 py-2 border border-slate-200">
                   {vendor.notes}
@@ -499,13 +612,15 @@ function VendorCard({
               )}
             </div>
           </div>
-          {vendor.website && (
-            <Button variant="outline" size="sm" className="shrink-0" asChild>
-              <a href={`https://${vendor.website}`} target="_blank" rel="noopener noreferrer">
-                Visit →
-              </a>
-            </Button>
-          )}
+          <div className="flex flex-col gap-2 items-end shrink-0">
+            {vendor.website && (
+              <Button variant="outline" size="sm" asChild>
+                <a href={`https://${vendor.website}`} target="_blank" rel="noopener noreferrer">
+                  Visit →
+                </a>
+              </Button>
+            )}
+          </div>
         </div>
       </CardContent>
     </Card>
