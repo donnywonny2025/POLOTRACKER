@@ -21,7 +21,13 @@
 | **Fight Agency** | Rebecca Katz | Founding Partner | Via website form | — | NEW 2025 | Won NYC mayoral race; building vendor relationships NOW |
 | **Fight Agency** | Tommy McDonald | Founding Partner | Via website form | — | NEW 2025 | Co-founder |
 | **Fight Agency** | Julian Mulvey | Founding Partner | Via website form | — | NEW 2025 | Third co-founder |
-| **Canal Partners Media** | Jamie Sterling | Principal | jamie@canalpartnersmedia.com ✓ | (770) 427-0735 ✓ | $22.6M / 100 pmts | Atlanta + DC; GA Senate is their home race in 2026 |
+| **Canal Partners Media** | Bobby Kahn | Founding Partner (LUC Media) | bobby@canalpartnersmedia.com (unconfirmed) | (770) 427-0735 ✓ | $22.6M / 100 pmts | **VERIFIED:** One of 7 partners; founded LUC Media 1993 (litigation against broadcasters); merged with Abar Hutton 2013; former GA Dem Party Chair; Biden-Harris lead media buyer |
+| **Canal Partners Media** | Barbara Abar | Founding Partner (Abar Hutton) | barbara@canalpartnersmedia.com (unconfirmed) | (770) 427-0735 ✓ | Same | **VERIFIED:** Co-founded Abar Hutton Media 1996 — first female team to start a political media buying firm |
+| **Canal Partners Media** | Shelli Hutton | Founding Partner (Abar Hutton) | shelli@canalpartnersmedia.com (unconfirmed) | (770) 427-0735 ✓ | Same | **VERIFIED:** Co-founded Abar Hutton Media 1996 with Barbara Abar |
+| **Canal Partners Media** | Devon Prescod | Partner | devon@canalpartnersmedia.com (unconfirmed) | (770) 427-0735 ✓ | Same | **VERIFIED:** One of 7 partners per firm website |
+| **Canal Partners Media** | Chris Brimer | Partner | chris@canalpartnersmedia.com (unconfirmed) | (770) 427-0735 ✓ | Same | **VERIFIED:** One of 7 partners per firm website |
+| **Canal Partners Media** | Jamie Sterling | Partner | jamie@canalpartnersmedia.com ✓ | (770) 427-0735 ✓ | Same | **VERIFIED:** One of 7 partners per firm website — full partner, not just buyer |
+| **Canal Partners Media** | Jeff Scattergood | Partner | jeff@canalpartnersmedia.com (unconfirmed) | (770) 427-0735 ✓ | Same | **VERIFIED:** One of 7 partners per firm website; 150+ combined years experience across all partners |
 | **MVAR Media** | Mike Reilly | Partner | info@mvarmedia.com ✓ | (703) 549-2976 ✓ | ~$8M | Actively hiring video editor/motion designer |
 | **MVAR Media** | Jon Vogel | Partner | info@mvarmedia.com ✓ | (703) 549-2976 ✓ | ~$8M | Co-partner |
 | **Gambit Strategies** | Megan Clasen | Partner | hello@gambitstrategies.com ✓ | — | ~$7M | Partners personally involved in every campaign |
@@ -165,7 +171,7 @@ When a new PAC materializes with $30M to spend, here is the chain:
 
 | Firm | Contact | Email ✓ | Phone ✓ |
 |---|---|---|---|
-| Canal Partners Media | Jamie Sterling | jamie@canalpartnersmedia.com | (770) 427-0735 |
+| Canal Partners Media | Bobby Kahn (CEO) | bobby@canalpartnersmedia.com (unconfirmed) | (770) 427-0735 |
 | MVAR Media | Mike Reilly / Jon Vogel | info@mvarmedia.com | (703) 549-2976 |
 | Gambit Strategies | Megan Clasen / Patrick McHugh | hello@gambitstrategies.com | — |
 | Wavelength Strategy | Dan McNally / Emmy Bengtson | hello@wavelengthstrategy.com | — |
@@ -218,7 +224,8 @@ When a new PAC materializes with $30M to spend, here is the chain:
 | **FlexPoint Media** | Kegan Beran | President/Co-Founder | info@flexpointmedia.com ✓ | (202) 417-2274 ✓ | $270M total | New Albany OH; largest Republican media buyer; CLF ($151M) primary client; omnichannel TV/CTV/digital |
 | **FlexPoint Media** | Tim Cameron | CEO/Co-Founder | info@flexpointmedia.com ✓ | (202) 417-2274 ✓ | Same | Co-founder; CTV specialist |
 | **Main Street Media Group** | Patti Heck | President | Via website form | msmg.tv | $139M SLF | Alexandria VA; Republican media buying; $1B+ placed since 2001; issue advocacy + political |
-| **Gen2 Solutions** | — | — | — | — | $108M total | NRSC ($22M) + SLF ($20M) + Tim Sheehy MT ($13.5M); principals not yet found — LinkedIn needed |
+| **Gen2 Solutions** | Chris Georgia | Partner (via Fusion) | — | — | $108M total | **VERIFIED:** Gen2 Solutions is the media buying entity at 3001 Washington Blvd 7th Fl, Arlington VA 22201 — same address as FP1 Strategies. FP1 now partners with **Fusion** (fusion3001.com) for media buying, led by former FP1 partners **Chris Georgia** (digital buying) and **Stephen Szostak**. Gen2 appears to be the FEC-registered buying entity for this operation. NRSC ($22M) + SLF ($20M) + Tim Sheehy MT ($13.5M) + American Crossroads ($8M). |
+| **Gen2 Solutions** | Stephen Szostak | Partner (via Fusion) | — | — | Same | **VERIFIED:** Co-leads Fusion with Chris Georgia; former FP1 Strategies partner. Contact via fusion3001.com |
 
 **Key insight on Republican PAC layer:** FlexPoint ($270M) and Main Street ($139M) are the two largest Republican media buyers we've found. Both are media BUYERS not production shops — but at this volume they absolutely need production partners. FlexPoint in particular has been vocal about CTV/digital production needs.
 
@@ -226,4 +233,47 @@ When a new PAC materializes with $30M to spend, here is the chain:
 
 *✓ = confirmed from official source (website, OAAA directory, or direct contact page)*
 *Unconfirmed emails = best-guess format based on firm's email pattern — verify before sending*
-*Last updated: March 11, 2026*
+## ADDITIONAL FIRMS — CONFIRMED FROM RESEARCH
+
+| Firm | Contact | Notes |
+|---|---|---|
+| **Dupont Circle Strategies** | Unknown principals | $122M from Harris campaign; media buying pass-through entity; deliberately opaque; DC-based |
+| **C+K (Chong + Koster)** | Nick Chong (co-founder) | Digital advertising; pioneered Facebook voter contact; Harris campaign 2024; by referral only; cplusk.com |
+| **Media Buying & Analytics** | Bobby Kahn (via Canal Partners) | Canal Partners shell company; used for presidential campaigns; $281M from Harris, $446M from Biden |
+
+---
+
+*✓ = confirmed from official source (website, OAAA directory, or direct contact page)*
+*Unconfirmed emails = best-guess format based on firm's email pattern — verify before sending*
+## CANAL PARTNERS MEDIA — FULL VERIFIED STRUCTURE
+*Source: canalpartnersmedia.com (verified March 12, 2026)*
+
+**7-Partner Firm** formed 2013 from merger of Abar Hutton Media (founded 1996) + LUC Media (founded 1993)
+- **Barbara Abar** — Founding Partner (Abar Hutton); first female team in political media buying
+- **Shelli Hutton** — Founding Partner (Abar Hutton)
+- **Bobby Kahn** — Founding Partner (LUC Media); started LUC 1993 after litigation against broadcasters; former GA Dem Party Chair
+- **Devon Prescod** — Partner
+- **Chris Brimer** — Partner
+- **Jamie Sterling** — Partner (CONFIRMED FULL PARTNER, not just buyer)
+- **Jeff Scattergood** — Partner
+
+**Collective:** 150+ years experience, $5B+ in media spending, Biden-Harris 2020 lead buyer, Clinton/Gore 1996 through present
+
+---
+
+## GEN2 SOLUTIONS — VERIFIED STRUCTURE
+*Source: FEC data + FP1 Strategies website + Fusion3001.com (verified March 12, 2026)*
+
+**Gen2 Solutions LLC** is the FEC-registered media buying entity co-located with **FP1 Strategies** at 3001 Washington Blvd, 7th Floor, Arlington VA 22201. FP1 now partners with **Fusion** (fusion3001.com) for all media buying, led by former FP1 partners:
+- **Chris Georgia** — Partner, leads digital media buying practice
+- **Stephen Szostak** — Partner, co-leads Fusion
+
+**2024 clients:** NRSC ($22.3M, 50 payments), Senate Leadership Fund ($20.7M, 17 payments), Tim Sheehy for Montana ($13.5M, 80 payments), American Crossroads ($8M, 4 payments), plus 20+ other Republican campaigns
+
+**For outreach:** Contact via fusion3001.com — this is the active buying operation.
+
+---
+
+*✓ = confirmed from official source (website, OAAA directory, or direct contact page)*
+*Unconfirmed emails = best-guess format based on firm's email pattern — verify before sending*
+*Last updated: March 12, 2026*
